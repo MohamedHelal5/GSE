@@ -1,11 +1,30 @@
+/* start global */
+:root {
+    --main-color: #2196f3;
+    --secondary-color: #1787e0;
+    --main-transition-duration : 0.3s;
+    --section-background : #ececec
+}
 html {
     scroll-behavior: smooth;
 }
 body {
     box-sizing: border-box;
-    font-family: "Work Sans", sans-serif;
+    font-family: 'Cairo', sans-serif;
 }
-
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+}
 /* small */
 @media (min-width: 768px){
     .container {
@@ -24,257 +43,423 @@ body {
         width: 1170px;
     }
 }
-/* start header */
-.header {
-    height: calc(50vh - 64px); /*header height = 64px to make landing section if full you should remove the header height*/
+/* end global */
+/* start Navbar */
+.navbar {
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
+    -webkit-box-shadow: 0 0 10px #ddd;
+    -moz-box-shadow: 0 0 10px #ddd;
+    box-shadow: 0 0 10px #ddd;
+}
+.navbar  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     position: relative;
 }
-.header .background {
-    background-image: url(../img/bg.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: grayscale(20);
-    height: 100%;
-    width: 100%;
+.navbar .logo {
+    color: var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    font-size: 26px;
+    font-weight: bold;
+    box-shadow: inset 0 0 0 0 var(--secondary-color);
+	padding: 0 .25rem;
+	margin: 0 -.25rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
-.header .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px , 1fr)); /*autofill : fill the columns depends on the space , and the beginning form 300px and the end is 1 fraction that is mean (لابد أن يبدأ من 300 ولو كان هناك مساحة متوفرة هياخد قيمة 1 fraction  كاملة)*/
-    grid-gap: 20px;
+.navbar .logo:hover {
+    color: #fff;
+    box-shadow: inset 200px 0 0 0 var(--main-color)
 }
-.header .header-content {
+@media(max-width: 767px){
+    .navbar  .logo {
+        width: 100%;
+    }
+}
+.navbar  ul.main-nav {
+    display: flex;
+}
+@media(max-width: 767px){
+    .navbar  ul.main-nav{
+        margin: auto;
+    }
+}
+.navbar  ul.main-nav  li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    position: relative;
+    padding: 0 30px;
+    height: 72px;
+    transition: var(--main-transition-duration);
+    overflow: hidden;
+}
+@media(max-width: 767px){
+    .navbar  ul.main-nav  li a{
+        padding: 15px;
+        font-size: 15px;
+        height: 40px;
+    }
+}
+.navbar  ul.main-nav  li a::before {
+    content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50% ,-50%);
+    width: 100%;
+    height: 4px;
+    top: 0;
+    left: -100%;
+    background-color: var(--main-color);
+    transition: var(--main-transition-duration);
+}
+.navbar  ul.main-nav  li a:hover {
+    background-color: #fafafa;
+    color: var(--main-color);
+}
+.navbar  ul.main-nav  li a:hover::before {
+    left: 0;
+}
+/* end Navbar */
+/* start landing */
+.landing {
+    position: relative;
+}
+.landing::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ECECEC;
+    z-index: -1;
+    -webkit-clip-path: polygon(48% 4%, 83% 9%, 96% 29%, 94% 79%, 67% 96%, 32% 100%, 6% 82%, 1% 43%, 11% 11%);
+    clip-path: polygon(48% 4%, 83% 9%, 96% 29%, 94% 79%, 67% 96%, 32% 100%, 6% 82%, 1% 43%, 11% 11%);
+}
+.landing .container{
+    min-height: calc(90vh);
+    display: flex;
+    align-items: center;
+    padding-bottom: 120px;
+}
+.landing .text {
+    flex: 1;
+}
+@media(max-width: 991px) {
+    .landing .text {
+        text-align: center;
+        padding-top: 20px;
+    }
+}
+.landing .text h1 {
+    position: relative;
+    font-size: 40px;
+    margin: 0;
+    transform: translateY(-40px);
+    animation : fadeindown 2s ease forwards
+}
+@keyframes fadeindown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.landing .text h3 {
+    font-size: 18px;
+    transform: translateX(-60px);
+    animation: fadeinright 2s ease forwards;
+}
+@keyframes fadeinright {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.landing .text p {
+    position: relative;
+    line-height: 1.7;
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 18px;
+    max-width: 500px;
+}
+.landing .text p::before,
+.landing .text p::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.landing .text p::before {
+    background-color: #ececec;
+    animation : slow 2.5s steps(24) forwards;
+}
+.landing .text p::after {
+    width: 1px;
+    background-color: var(--secondary-color);
+    animation : slow 2.5s steps(24) forwards
+}
+@keyframes slow {
+    to {
+        left: 100%;
+        visibility: hidden;
+    }
+
 }
 
-.header .leaflet-search input{
-    width: 170px;
-    height: 20px;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    outline: none;    
+.landing .text i {
+    font-size: 14px;
 }
-.welcome-btn {
-    text-align: center;
-}
-.welcome {
-    width: 500px;
-    height: 50px;
-    border: 1px solid #eee;
-    outline: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 6px;
-    background-image: linear-gradient(to right, #178b80 0%, #92924b  51%, #213d58  100%);
-    color: white;
-    font-weight: bolder;
-}
-.welcome:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    position: absolute;
-    top: -2px;
-    left:-2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
-.welcome:active {
-    color: #000
-}
-.welcome:active:after { 
-    background: transparent;
-}
-.welcome:hover:before {
-    opacity: 1;
-}
-.welcome:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-}
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
-@media (max-width: 767px) {
-    .welcome {
-        font-size: 14px;
-        width: 220px;
-        height: 50px;
-        margin: 8px;
+@media(max-width: 767px) {
+    .landing .text h1 {
+        font-size: 18px;
     }
-    .welcome .welcome-icons {
-        display: inline-block;
+    .landing .text p {
+        font-size: 10px;
     }
-    .welcome .welcome-icons i {
+    .landing .text i {
         font-size: 12px;
     }
 }
-.header .leaflet-search .search-num-1 {
-    margin: 18px 0;
-    display: flex;
-    justify-content: center;
+.landing .image img{
+    width: 600px;
+    position: relative;
+    animation: up-and-down 2.5s linear infinite;
 }
-.header .leaflet-search .search-num-1 .xy{
-    width: 300px;
+@keyframes up-and-down {
+    0%,
+    100% {
+        top: 0;
+    }
+    50% {
+        top: -50px;
+    }
 }
-.all-search,
-.single-search {
-    background-image: linear-gradient(to right, #178b80 0%, #b6b672  51%, #003973  100%);
-    padding: 8px 12px;
+@media(max-width: 991px) {
+    .landing .image img{
+        width: 250px;
+    }
+    .landing .text p {
+        margin: 10px auto;
+    }
+}
+@media (max-width: 768px){
+    .landing::before  {
+        height: 90%;
+    }
+    .landing .container {
+        min-height: calc(60vh);
+        display: flex;
+        align-items: center;
+        padding-bottom: 40px;
+    }
+}
+/* end landing */
+/* start geo */
+.geo {
+    padding-top: var(--main-padding-top);
+    padding-bottom: var(--main-padding-bottom);
+    position: relative;
+    background-color: var(--section-background);
+    padding: 30px;
+}
+.geo .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+.geo .box {
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+    counter-increment: geo;
+    box-shadow: 0px 12px 20px 0px rgb(0 0 0 / 7%), 0px 2px 4px 0px rgb(0 0 0 / 12%);
+    height: fit-content;
+}
+.geo .box:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    top: -3px;
+    left: 50%;
+    background-color: var(--main-color);
+    transform: translateX(-50%);
+    transition: var(--main-transition-duration);
+}
+.geo .box:hover:before {
+    width: 100%;
+}
+.geo .box-xy,
+.geo .box-rm {
     text-align: center;
-    font-size: 16px;
+    margin: 45px 0 45px 0;
+    padding: 20px;
+}
+.geo .box-dms {
+    text-align: center;
+    margin: 10px 0 5px 0;
+    padding: 5px;
+    font-size: 13px;
+}
+.geo .box-xy .xy-inpu,
+.geo .box-rm .rm-xy{
+    width: 260px;
+    height: 15px;
+    padding: 6px;
+    font-size: 12px;
+}
+.geo .box-dms input {
+    width: 75px;
+    height: 15px;
+    padding: 6px;
+    font-size: 12px;
+    margin: 0 5px;
+}
+.geo .box-dms .lat-dms,
+.geo .box-dms .lng-dms,
+.geo .box-dms .convert-result {
+    position: relative;
+    padding-top: 5px;
+}
+.geo .box-dms .lng-dms {
+    margin-top: 10px;
+}
+.geo .box-dms .lat-dms .lat-title,
+.geo .box-dms .lng-dms .lng-title,
+.geo .box-dms .convert-result .result-title{
+    position: absolute;
+    transform: translateY(-15px);
+}
+.geo .box-xy .xy-search,
+.geo .box-dms .convert-btn,
+.geo .box-rm .rm-search{
+    background-image: linear-gradient(to right, #178b80 0%, #b6b672  51%, #003973  100%);
+    padding: 7px 12px ;
+    text-align: center;
     cursor: pointer;
     font-weight: bold;
     transition: 0.5s;
     background-size: 200% auto;
     color: white;            
-    box-shadow: 0 0 15px #999797;
     border-radius: 5px;
+    margin-top: 12px;
 }
-.all-search:hover,
-.single-search:hover {
+.geo .box-xy .xy-search:hover,
+.geo .box-dms .convert-btn:hover,
+.geo .box-rm .rm-search:hover{
     background-position: right center; /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
 }
-.leaflet-search .search-num-2 {
-    display: flex;
-    justify-content: space-around;
-}
-.leaflet-search .search-num-1 .all-search i {
-    padding-left: 6px;
+.geo .box-xy .xy-search,
+.geo .box-rm .rm-search {
     font-size: 15px;
 }
-.leaflet-search .search-num-2 .single-search i{
-    padding-left: 6px;
-    font-size: 18px;
+.geo .box i {
+    margin-left: 5px;
 }
-@media (max-width: 992px) {
-    .header .leaflet-search .search-num-1{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 9px 0;
-    }
-    .header .leaflet-search .search-num-1 .xy {
-        width: 150px;
-        height: 15px;
-        padding: 6px;
-        font-size: 11px;
-    }
-    .header .leaflet-search .search-num-2 .lat-input,
-    .header .leaflet-search .search-num-2 .lng-input{
-        width: 120px;
-        height: 15px;
-        padding: 6px;
-        font-size: 11px;
-    }
-    .header .leaflet-search input::placeholder{
-        font-size: 11px;
-    }
-    .leaflet-search .search-num-1 .all-search,
-    .leaflet-search .search-num-2 .single-search {
-        font-size: 11px;
-        font-weight: bold;
-        padding: 6px 6px;;
-    }
-    .leaflet-search .search-num-1 .all-search {
-        margin-left: 5px;
-    }
-    .leaflet-search .search-num-1 .all-search i,
-    .leaflet-search .search-num-2 .single-search i {
-        font-size: 12px;
-        padding-left: 2px;
-    }
-
+.geo .box .convert-result {
+    margin-top: 12px;
 }
-@media (max-width: 530px) {
-    .header {
-        height: calc(65vh - 64px); /*header height = 64px to make landing section if full you should remove the header height*/
-        position: relative;
+.geo .box .info {
+    padding: 15px;
+    font-size: 14px;
+    position: relative;
+    text-align: right;
+    background-color: #f9f9f9;
+}
+.geo .box .info::before {
+    content: '0' counter(geo);
+    position: absolute;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    padding-right: 15px;
+}
+.geo .box .info::after {
+    content: '';
+    position: absolute;
+    background-color: #d5d5d5;
+    top: 0;
+    left: 17%;
+    width: 50px;
+    height: calc(100% + .4px);
+    transform: skewX(-20deg);
+}
+.geo .box:hover .info:after {
+    margin-left: 18px;
+    transition: var(--main-transition-duration);
+}
+.geo .box .info span {
+    color: var(--main-color);
+}
+.geo .box input {
+    position: relative;
+    border:0;
+    border-bottom:1px solid #555;  
+    padding: 8px 0 5px 0;
+    font-size: 12px;
+}
+.geo .box input:focus{
+    border: none;	
+    outline: none;
+    border-bottom: 1px solid var(--secondary-color);
+    animation: change-border-color  0.3s ease-in-out forwards;
+}
+@keyframes change-border-color {
+    0%, 20% {
+       border-bottom: 1px solid black;
     }
-    .welcome {
-        margin-top: 10px ;
-        margin-bottom: 5px ;
-    }
-    .header .leaflet-search .search-num-1 {
-        position: relative;
-        margin-top: 2px;
-    }
-    .header .leaflet-search .search-num-1 .num1-content {
-        text-align: center;
-    }
-    .header .leaflet-search .search-num-1 .xy{
-        width: 200px;
-        text-align: center;
-    }
-    .all-search {
-        text-align: center;
-        margin-top: 5px;
-    }
-    .header .leaflet-search .search-num-2 {
-        position: relative;
-        margin-top: 2px;
-    }
-    .leaflet-search .search-num-2 .num2-content {
-        text-align: center;
-    }
-    .header .leaflet-search .search-num-2 .lat-input,
-    .header .leaflet-search .search-num-2 .lng-input{
-        width: 200px;
-        text-align: center;
-    }
-    .header .leaflet-search .search-num-2 .lng-input,
-    .leaflet-search .search-num-2 .single-search {
-        margin-top: 5px;
+    100% {
+        border-bottom: 1px solid var(--secondary-color); 
+        color: var(--main-color);
     }
 }
-@media (max-width : 690px) {
-    .single-search {
-        display: inline-flex;
-    }
-    .single-search i {
-        top: 5px;
-        position: relative;
-    }
-}
-@media (max-width : 690px) {
-    .single-search {
-        display: inline-flex;
-    }
-    .single-search i {
-        top: 5px;
-        position: relative;
+@media (max-width: 768px) {
+    .box-dms .lat-dms .lat-deg,
+    .box-dms .lat-dms .lat-min,
+    .box-dms .lng-dms .lng-deg,
+    .box-dms .lng-dms .lng-min {
+        width: 50px;
     }
 }
-/* end header */
+/* end geo */
 /* start map content*/
 .map-border {
     border: 3px solid #363636;
+    position: relative;
+}
+.map-home {
+    position: absolute;
+    top: 125px;
+    left: 10px;
+    z-index: 999;
+    padding: 6px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: #fff;
+    border: 2px solid rgba(0,0,0,0.2);
+    background-clip: padding-box;
 }
 .locationinfo,
-.info span{
+.map-footer span{
     width: 500px;
     height: 30px;
     color: #fff;
@@ -311,33 +496,47 @@ body {
     background: linear-gradient(0deg, #2196f3, #060c21, #F00000);
     border-radius: 5px;
 }
-.info span {
+.map-footer span {
     margin-top:20px;
 } 
 @media (max-width: 510px) {
-    .info span {
+    .map-footer span {
         width: 300px;
         text-align: center;
         font-size: 12px;
     }
-    .info .locationinfo{
+    .map-footer .locationinfo{
         width: 300px;
         text-align: center;
         font-size: 9px;
     }
 }
 @media (max-width: 300px) {
-    .info span {
+    .map-footer span {
         width: 200px;
         text-align: center;
         font-size: 12px;
     }
-    .info .locationinfo{
+    .map-footer .locationinfo{
         width: 200px;
         text-align: center;
         font-size: 8px;
     }
 }
+/* for map icon */
+.leaflet-control-layers {
+    margin: 2px 10px !important
+}
+.leaflet-control-geocoder{
+    margin: 0 10px 3px 0  !important
+}
+
+.leaflet-routing-container {
+    font-size: 9px;
+    height: auto;
+    margin-top: 2px;
+}
+/* for map icon */
 /* end map content*/
 /* start Footer */
 .footer {
@@ -352,11 +551,11 @@ body {
 }
 .footer .footer-tit {
     font-weight: bold;
-    color: #cac710;
+    color: var(--main-color);
 }
 .footer .footer-span-one .footer-tit:hover {
     text-decoration: underline;
-    color: #cac710;
+    color: var(--main-color);
     transition: 1.5s;
 }
 .footer .footer-span-one {
@@ -372,10 +571,9 @@ body {
 .footer .footer-span-two i {
     margin-left: 8px;
     margin-top: 15px;
-    text-decoration: underline;
 }
 .footer .footer-span-two i:hover {
-    color: #cac710;
+    color: var(--main-color);
     transition: 0.4s;
 }
 @media (max-width: 510px) {

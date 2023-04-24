@@ -5,81 +5,171 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSE</title>
-    <!-- css file -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Normalize CSS file -->
-    <link rel="stylesheet" href="css/normalize.css">
     <!--font awesome all css min file-->
     <link rel="stylesheet" href="css/all.min.css"/>
+    <!-- Normalize CSS file -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- css file -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- leaflet-routing-machine CSS file -->
+    <link rel="stylesheet" href="css/leaflet-routing-machine.css">
+    <!-- Geocodercss file-->
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
     <!-- leaflet geocoder for location search css link  -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="css/Control.Geocoder.css"/>
 
 </head>
 <body>
-    <!-- start header -->
-    <div class="header">
-        <div class="background"></div>
+    <!-- start Navbar -->
+    <div class="navbar" id="navbar">
         <div class="container">
-            <div class="header-content">
-                <div class="welcome-btn">
-                    <button class="welcome">
-                        Welcome to GSE
-                        <span class="welcome-icons">
+            <a href="#" class="logo">GSE</a>
+            <ul class="main-nav">
+                <li><a href="#landing">Home</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#footer">About</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- End Navbar -->
+        <!-- start landing -->
+        <div class="landing" id="landing">
+            <div class="container">
+                <div class="text">
+                    <h1>Welcome, To</h1>
+                        <h3 class="welcome-icons">
                             [ Geo
                             <i class="fa-solid fa-globe fa-bounce "></i>
                             Search
                             <i class="fa-sharp fa-solid fa-location-crosshairs fa-bounce"></i>
                             Engine
                             <i class="fa-solid fa-location-dot fa-bounce "></i> ]
-                        </span>
-                    </button>
+                        </h3>
+                    <p>With our user-friendly interface, you can easily search for any location around the globe and get accurate and up-to-date information on its coordinates, including latitude and longitude.</p>
                 </div>
-                <div class="leaflet-search">
-                    <div class="search-num-1">
-                        <div class="num1-content">
-                            <input type="text" id="search" placeholder="Lat,Lng" class="xy">
-                            <button id="leaflet-search-btn" class="all-search">
-                                Search
-                                <i class="fa-sharp fa-solid fa-magnifying-glass-location fa-fade fa-sm"></i>
-                            </button>
+                <div class="image">
+                    <img src="img/landing-image.png" alt="landing">
+                </div>
+            </div>
+        </div>
+    <!-- end landing -->
+        <!-- start services -->
+        <div class="geo" id="#services">
+            <div class="container">
+                <!-- box 1 -->
+                <div class="box">
+                    <div class="box-xy">
+                        <input type="text" id="xy-search" placeholder="Lat,Lng" class="xy-inpu" required>
+                        <br>
+                        <button type="button" id="xy-search-btn" class="xy-search">
+                            Search
+                            <i class="fa-sharp fa-solid fa-magnifying-glass-location fa-fade fa-sm"></i>
+                        </button>
+                    </div>
+                    <div class="info">
+                        <span>search by Lat,lng</span>
+                    </div>
+                </div>
+                <!-- box 2  -->
+                <!-- <div class="box">
+                    <div class="box-x-or-y">
+                        <input type="text" id="search-lat" placeholder="Lat" class="lat-input" required>
+                        <input type="text" id="search-lng" placeholder="Lng" class="lng-input" required>
+                        <br>
+                        <button id="single-search-btn" class="single-search">
+                            Search
+                            <i class="fa-sharp fa-solid fa-map-location-dot fa-beat-fade "></i>
+                        </button>
+                    </div>
+                    <div class="info">
+                        <a href="#">Search by lat or lng</a>
+                    </div>
+                </div> -->
+                <!-- box 3  -->
+                <div class="box">
+                    <div class="box-dms">
+                        <div class="convert-form">
+                            <form>
+                                <div class="lat-dms">
+                                    <span class="lat-title">Lat :</span>
+                                    <label for="latD">deg:</label>
+                                    <input type="number" class="lat-deg" id="latD" min="-90" max="90" step="1" placeholder="DD">
+                                    <label for="latM">min:</label>
+                                    <input type="number" class="lat-min" id="latM" min="0" max="59" step="1" placeholder="MM">
+                                    <label for="latS">sec:</label>
+                                    <input type="number" class="lat-sec" id="latS" min="0" max="59" step="1" placeholder="SS">
+                                </div>
+                                <br>
+                                <div class="lng-dms">
+                                    <span class="lng-title">Long :</span>
+                                    <label for="lngD">deg:</label>
+                                    <input type="number" class="lng-deg" id="lngD" min="-180" max="180" step="1" placeholder="DDD">
+                                    <label for="lngM">min:</label>
+                                    <input type="number" class="lng-min" id="lngM" min="0" max="59" step="1" placeholder="MM">
+                                    <label for="lngS">sec:</label>
+                                    <input type="number" class="lng-sec " id="lngS" min="0" max="59" step="1" placeholder="SS">
+                                </div>
+                                <button type="button" class="convert-btn" onclick="convert()">
+                                    Convert
+                                    <i class="fa-solid fa-arrows-rotate fa-fade"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="convert-result">
+                            <label class="result-title">Result :</label>
+                            <label for="resultLat">Latitude:</label>
+                            <input type="text" id="resultLat" readonly>
+                            <label for="resultLng">Longitude:</label>
+                            <input type="text" id="resultLng" readonly>
                         </div>
                     </div>
-                    <div class="search-num-2">
-                        <div class="num2-content">
-                                <input type="text" id="search-lat" placeholder="Lat" class="lat-input">
-                                <input type="text" id="search-lng" placeholder="Lng" class="lng-input">
-                            <button id="single-search-btn" class="single-search">
-                                Search
-                                <i class="fa-sharp fa-solid fa-map-location-dot fa-beat-fade fa-xl"></i>
-                            </button>
-                        </div>
+                    <div class="info">
+                        <span>DMS to Lat/Lng Converter</span>
+                    </div>
+                </div>
+                <!-- box 4 -->
+                <div class="box">
+                    <div class="box-rm">
+                        <input type="text" id="rm-search" placeholder="Lat,Lng" class="rm-xy" required>
+                        <br>
+                        <button id="leaflet-rm-btn" type="button" class="rm-search">route
+                            <i class="fa-sharp fa-solid fa-route fa-fade"></i>
+                        </button>
+                    </div>
+                    <div class="info">
+                        <span>find the route</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end map -->
+        <!-- end services -->
     <!-- start map -->
-    <div class="map-content">
-            <div class="map-container">
-                <div class="map-border">
-                    <div id="map" style="height: 70vh; width : 100%"></div>
+    <div class="location">
+        <div class="map-content" id="map">
+                <div class="map-container">
+                    <div class="map-border">
+                        <button class="map-home" title="home map view">
+                            <i class="fa-solid fa-house"></i>
+                        </button>
+                        <div id="map" style="height: 90vh; width : 100%"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="info">
-                <span>You clicked the map at </span>
-                <input type="text" id="mapinfo" class="locationinfo">
-            </div>
+        </div>
+        <div class="map-footer">
+            <span>You clicked the map at </span>
+            <input type="text" id="mapinfo" class="locationinfo">
+        </div>
     </div>
-    <!-- end body -->
+        <!-- end map -->
+        <!-- Convert decimal latitude longitude to UTM easting and UTM northing with zone value. -->
+        <!-- start converter -->
     <!-- start footer -->
-    <div class="footer">
-            <div class="footer-content">
-                <div class="span1">
+    <div class="footer" id="footer">
+        <div class="footer-content">
+            <div class="span1">
                     <span class="footer-span-one">
                         &copy 2023 
                         <span class="footer-tit">GSE</span>
@@ -107,10 +197,14 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
     crossorigin=""></script>
-    <!-- leaflet geocoder for location search js link -->
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- leaflet geocoder for location search js file -->
+    <script src="js/Control.Geocoder.js"></script>
+    <!-- leaflet rm  -->
+    <script src="js/leaflet-rm.min.js"></script>
+    <!-- leaflet browser print -->
+    <script src="js/leaflet.browser.print.min.js"></script>
+    <!-- leaflet measure  -->
     <!-- main js file -->
-    <script src="js/jquery 3.6.4.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
