@@ -82,6 +82,10 @@ a {
     .navbar  .logo {
         width: 100%;
     }
+    .navbar .logo:hover {
+        color: #fff;
+        box-shadow: inset 100px 0 0 0 var(--main-color)
+    }
 }
 .navbar  ul.main-nav {
     display: flex;
