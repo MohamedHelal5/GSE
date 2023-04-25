@@ -319,23 +319,6 @@ searchBtn.onclick = function () {
     map.setView([lat, lng], 10);
     makeMarker.setLatLng([lat, lng])
 }
-// // lat and lng single search
-// var singleSearchBtn = document.getElementById("single-search-btn");
-// singleSearchBtn.onclick = function () {
-//     var latValue = document.getElementById("search-lat").value
-//     var lngValue = document.getElementById("search-lng").value
-//     //circle
-//     var puttingCircle = L.circle([latValue, lngValue], {
-//         color : 'red',
-//         fillColor : '#f03',
-//         fillOpcaity: 0.5,
-//         radius : 10
-//     }).addTo(map)
-//     var puttingMarker = L.marker([latValue,lngValue], {draggable : false}).addTo(map);
-//     puttingMarker.bindPopup(`<b>Hello!</b><br>Your Location is: ${puttingMarker.getLatLng()}`)
-//     map.setView([latValue, lngValue], 10);
-//     puttingMarker.setLatLng([latValue, lngValue])
-// }
 // browser Print
 L.control.browserPrint().addTo(map);
 // map scale bar
@@ -396,56 +379,9 @@ const convert = () => {
 
     var dmslat = document.getElementById("resultLat").value = lat.toFixed(6);
     var dmslng = document.getElementById("resultLng").value = lng.toFixed(6);
-    // 
+
     var dmsMarker = L.marker([dmslat,dmslng], {draggable : false}).addTo(map);
     dmsMarker.bindPopup(`Your Location after converting from DMS to Lat,Lng is: ${dmsMarker.getLatLng()}`).openPopup();
     map.setView([dmslat, dmslng], 10);
     dmsMarker.setLatLng([dmslat, dmslng])
-    // var dmspop = L.popup().setLatLng([dmslat, dmslng]).setContent(`Your Location is: ${dmsMarker.getLatLng()}`).openOn(map)
 };
-
-// #####################################################################################
-// const utmToLatLng = (utmX, utmY, utmZone) => {
-//     const k0 = 0.9996;
-//     const a = 6378137;
-//     const eccSquared = 0.00669438;
-//     const e1 = (1 - Math.sqrt(1 - eccSquared)) / (1 + Math.sqrt(1 - eccSquared));
-//     const x = utmX - 500000;
-//     const y = utmY;
-//     const zoneNumber = utmZone;
-//     const zoneLetter = "CDEFGHIJKLMNOPQRSTUVWXX"[Math.floor(zoneNumber / 3)];
-  
-//     const n = (zoneNumber % 2 === 0) ? zoneNumber / 2 - 1 : (zoneNumber - 1) / 2;
-  
-//     const m = y / k0;
-//     const mu = m / (a * (1 - eccSquared / 4 - 3 * eccSquared ** 2 / 64 - 5 * eccSquared ** 3 / 256));
-//     const phi1Rad = mu +
-//       (3 * e1 / 2 - 27 * e1 ** 3 / 32) * Math.sin(2 * mu) +
-//       (21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32) * Math.sin(4 * mu) +
-//       (151 * e1 ** 3 / 96) * Math.sin(6 * mu);
-//     const lat = phi1Rad * 180 / Math.PI;
-  
-//     const n1 = a / Math.sqrt(1 - eccSquared * Math.sin(phi1Rad) ** 2);
-//     const t1 = Math.tan(phi1Rad) ** 2;
-//     const c1 = eccSquared * Math.cos(phi1Rad) ** 2;
-//     const r1 = a * (1 - eccSquared) / Math.pow(1 - eccSquared * Math.sin(phi1Rad) ** 2, 1.5);
-//     const d = x / (n1 * k0);
-  
-//     let lng = d - (1 + 2 * t1 + c1) * d ** 3 / 6 +
-//       (5 - 2 * c1 + 28 * t1 - 3 * c1 ** 2 + 8 * eccSquared + 24 * t1 ** 2) * d ** 5 / 120;
-//     lng = lng / Math.cos(phi1Rad);
-//     lng += (zoneNumber % 3) ? -183 : 177;
-//     lng += 6;
-  
-//     return { lat: lat.toFixed(6), lng: lng.toFixed(6) };
-//   };
-  
-//   const convert = () => {
-//     const utmX = parseFloat(document.getElementById("utmX").value);
-//     const utmY = parseFloat(document.getElementById("utmY").value);
-//     const utmZone = parseInt(document.getElementById("utmZone").value);
-//     const result = utmToLatLng(utmX, utmY, utmZone);
-//     document.getElementById("lat").value = result.lat;
-//     document.getElementById("lng").value = result.lng;
-//   };  
-// #####################################################################################################################################
