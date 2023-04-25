@@ -87,8 +87,8 @@ CAPMAS.bindPopup(`<h3>الجهاز المركزى للتعبئة العامة و
 <br>${CAPMAS.getLatLng()}<br><img style="width:80px;height:80px" src="./img/CAPMAS.jpg">`)
 
 var Rashideen = L.marker([29.97753459556394, 31.407632799729562], {draggable : false}).addTo(map)
-Rashideen.bindPopup(`<h3>GIZ Egypt</h3>
-<p style = "font-size:9px">Rashideen Egypt for Trade Co. (RETC) is one of the largest companies operating in the field of FMCG in Egypt. Also we are part of a regional group, having its headquarters in U.A.E, having diversified interests in the fields of the oil & gas, mega real estate development projects and several other industries. Company has branches throughout North Africa and Middle East.</p>
+Rashideen.bindPopup(`<h3>Rashideen Egypt for Trade Co. (RETC)</h3>
+<p style = "font-size:9px">is one of the largest companies operating in the field of FMCG in Egypt. Also we are part of a regional group, having its headquarters in U.A.E, having diversified interests in the fields of the oil & gas, mega real estate development projects and several other industries. Company has branches throughout North Africa and Middle East.</p>
 <br>${Rashideen.getLatLng()}<br><img style="width:80px;height:80px" src="./img/Rashideen.jpg">`)
 
 var GIZ = L.marker([30.056097892068056, 31.220620766240113], {draggable : false}).addTo(map)
