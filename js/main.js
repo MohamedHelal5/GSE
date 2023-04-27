@@ -1,7 +1,6 @@
 // map initialization
 var map = L.map('map').setView([30.033333, 31.233334], 7);
-
-// GIS Company in egypt
+// GIS Companies in egypt
 var EsriNA = L.marker([30.02626468661573, 31.459740530656436], {title: 'ESRI'}).addTo(map)
 EsriNA.bindPopup(`<h3> Esri North Africa (Esri NA)</h3>
 <h4>The Science of Where <h4/>
@@ -12,6 +11,7 @@ EsriNA.bindPopup(`<h3> Esri North Africa (Esri NA)</h3>
 var QSIT = L.marker([30.028055251445934, 31.26735009507425], {draggable : false}).addTo(map)
 QSIT.bindPopup(`<h3>Quality Standards for Information Technology (QSIT)</h3> 
 <p style = "font-size:9px">was established in 1994. Since then it became a leader of Geospatial Solutions and Services where our services extended to cover all needs of our local market with the first of kind training center for providing specialized GIS training programs, we made GIS easy for all. Our success builds on creative implementations of GIS solutions and services for more than 15 different industries.</p>
+<a href="https://qsitint.com/" target="_blank">https://qsitint.com/</a><br>
 <br>${QSIT.getLatLng()}<br><img style="width:80px;height:80px" src="./img/qsit.jpg">`)
 
 var pentab = L.marker([30.054427233808436, 31.33501748158145], {draggable : false}).addTo(map)
@@ -319,7 +319,6 @@ searchBtn.onclick = function () {
     map.setView([lat, lng], 10);
     makeMarker.setLatLng([lat, lng])
 }
-// browser Print
 L.control.browserPrint().addTo(map);
 // map scale bar
 L.control.scale({
@@ -379,7 +378,7 @@ const convert = () => {
 
     var dmslat = document.getElementById("resultLat").value = lat.toFixed(6);
     var dmslng = document.getElementById("resultLng").value = lng.toFixed(6);
-
+    // 
     var dmsMarker = L.marker([dmslat,dmslng], {draggable : false}).addTo(map);
     dmsMarker.bindPopup(`Your Location after converting from DMS to Lat,Lng is: ${dmsMarker.getLatLng()}`).openPopup();
     map.setView([dmslat, dmslng], 10);
