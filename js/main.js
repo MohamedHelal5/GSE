@@ -319,6 +319,24 @@ searchBtn.onclick = function () {
     map.setView([lat, lng], 10);
     makeMarker.setLatLng([lat, lng])
 }
+// // lat and lng single search
+// var singleSearchBtn = document.getElementById("single-search-btn");
+// singleSearchBtn.onclick = function () {
+//     var latValue = document.getElementById("search-lat").value
+//     var lngValue = document.getElementById("search-lng").value
+//     //circle
+//     var puttingCircle = L.circle([latValue, lngValue], {
+//         color : 'red',
+//         fillColor : '#f03',
+//         fillOpcaity: 0.5,
+//         radius : 10
+//     }).addTo(map)
+//     var puttingMarker = L.marker([latValue,lngValue], {draggable : false}).addTo(map);
+//     puttingMarker.bindPopup(`<b>Hello!</b><br>Your Location is: ${puttingMarker.getLatLng()}`)
+//     map.setView([latValue, lngValue], 10);
+//     puttingMarker.setLatLng([latValue, lngValue])
+// }
+// browser Print
 L.control.browserPrint().addTo(map);
 // map scale bar
 L.control.scale({
@@ -378,9 +396,195 @@ const convert = () => {
 
     var dmslat = document.getElementById("resultLat").value = lat.toFixed(6);
     var dmslng = document.getElementById("resultLng").value = lng.toFixed(6);
-    // 
+    // put lat,long marker
     var dmsMarker = L.marker([dmslat,dmslng], {draggable : false}).addTo(map);
     dmsMarker.bindPopup(`Your Location after converting from DMS to Lat,Lng is: ${dmsMarker.getLatLng()}`).openPopup();
     map.setView([dmslat, dmslng], 10);
     dmsMarker.setLatLng([dmslat, dmslng])
 };
+// ############################################# Convert Lat,long To UTM  ###############################
+// Convert Lat,Long to UTM Coordinate
+function convertLatLongToUTM() {
+    var lat = parseFloat(document.getElementById("lat").value);
+    var long = parseFloat(document.getElementById("long").value);
+
+    // Define the WGS84 ellipsoid parameters
+    var a = 6378137; // semi-major axis
+    var f = 1/298.257223563; // flattening
+
+    // Convert latitude and longitude from degrees to radians
+    var latRad = lat * Math.PI / 180;
+    var longRad = long * Math.PI / 180;
+
+    // Determine the UTM zone for the location
+    var zone = Math.floor((long + 180) / 6) + 1;
+
+    // Determine the central meridian of the UTM zone
+    var cm = (zone * 6) - 183;
+
+    // Calculate the UTM scale factor
+    var k0 = 0.9996;
+
+    // Calculate the eccentricity of the ellipsoid
+    var e = Math.sqrt(2*f - Math.pow(f, 2));
+
+    // Calculate the parameters for the UTM projection
+    var N = a / Math.sqrt(1 - Math.pow(e * Math.sin(latRad), 2));
+    var T = Math.pow(Math.tan(latRad), 2);
+    var C = Math.pow(e, 2) * Math.pow(Math.cos(latRad), 2);
+    var A = (longRad - (cm * Math.PI / 180)) * Math.cos(latRad);
+    var M = a * ((1 - Math.pow(e, 2) / 4 - 3 * Math.pow(e, 4) / 64 - 5 * Math.pow(e, 6) / 256) * latRad 
+                - (3 * Math.pow(e, 2) / 8 + 3 * Math.pow(e, 4) / 32 + 45 * Math.pow(e, 6) / 1024) * Math.sin(2 * latRad) + (15 * Math.pow(e, 4) / 256 + 45 * Math.pow(e, 6) / 1024) * Math.sin(4 * latRad) 
+                - (35 * Math.pow(e, 6) / 3072) * Math.sin(6 * latRad));
+    // Calculate the UTM coordinates
+    var x = k0 * N * (A + (1 - T + C) * Math.pow(A, 3) / 6 + (5 - 18 * T + Math.pow(T, 2) + 72 * C - 58 * Math.pow(e, 2)) * Math.pow(A, 5) / 120) + 500000;
+
+    var y = k0 * (M + N * Math.tan(latRad) * (Math.pow(A, 2) / 2 + (5 - T + 9 * C + 4 * Math.pow(C, 2)) * Math.pow(A, 4) / 24 + (61 - 58 * T + Math.pow(T, 2) + 600 * C - 330 * Math.pow(e, 2)) * Math.pow(A, 6) / 720));
+
+    // Determine the hemisphere (N or S)
+		var hemisphere = lat >= 0 ? "N" : "S";
+
+    // Format the UTM coordinates as a string
+		var utmCoords = x.toFixed(2) + ", " + y.toFixed(2) + " " + zone + hemisphere;
+
+    // Display the UTM coordinates in the result element
+		document.getElementById("result").value = "Easting: " + x.toFixed(2) + ", " + "Northing: " + y.toFixed(2) + " " + "Zone: " + zone + hemisphere;
+
+    // Put lat,lng marker
+    var UTMMarker = L.marker([lat,long], {draggable : false}).addTo(map);
+    UTMMarker.bindPopup(`Your Location after converting from DD to DMS is: ${UTMMarker.getLatLng()}`).openPopup();
+    map.setView([lat,long], 10);
+    UTMMarker.setLatLng([lat,long])
+
+        
+}
+// #####################################################################################################
+
+function convertDDtoDMS() {
+    const lat = parseFloat(document.getElementById('dd-lat').value);
+    const long = parseFloat(document.getElementById('dd-long').value);
+
+    if (isNaN(lat) || isNaN(long)) {
+        alert('Please enter valid decimal degrees for latitude and longitude.');
+        return;
+    }
+    const latDegrees = Math.floor(lat);
+    const latMinutes = Math.floor((lat - latDegrees) * 60);
+    const latSeconds = ((lat - latDegrees) * 60 - latMinutes) * 60;
+    const latDirection = lat >= 0 ? 'N' : 'S';
+
+    const longDegrees = Math.floor(long);
+    const longMinutes = Math.floor((long - longDegrees) * 60);
+    const longSeconds = ((long - longDegrees) * 60 - longMinutes) * 60;
+    const longDirection = long >= 0 ? 'E' : 'W';
+
+    document.getElementById('res-lat').value = `${latDegrees}° ${latMinutes}' ${latSeconds.toFixed(2)}" ${latDirection}`;
+    document.getElementById('res-long').value = `${longDegrees}° ${longMinutes}' ${longSeconds.toFixed(2)}" ${longDirection}`;
+
+    // Put lat,lng marker
+    var DDMarker = L.marker([lat,long], {draggable : false}).addTo(map);
+    DDMarker.bindPopup(`Your Location after converting from DD to DMS is: ${DDMarker.getLatLng()}`).openPopup();
+    map.setView([lat,long], 10);
+    DDMarker.setLatLng([lat,long])
+}
+// #######################################################################################################
+
+function convertDMStoUTM() {
+    // Get the DMS values from the form
+  const latDeg = parseInt(document.getElementById('dms-latD').value);
+  const latMin = parseInt(document.getElementById('dms-latM').value);
+  const latSec = parseInt(document.getElementById('dms-latS').value);
+  const latDir = parseInt(document.getElementById('dms-latDir').value);
+  const lngDeg = parseInt(document.getElementById('dms-lngD').value);
+  const lngMin = parseInt(document.getElementById('dms-lngM').value);
+  const lngSec = parseInt(document.getElementById('dms-lngS').value);
+  const lngDir = parseInt(document.getElementById('dms-lngDir').value);
+    
+
+    var latDegrees = parseFloat(latDeg);
+    var latMinutes = parseFloat(latMin);
+    var latSeconds = parseFloat(latSec);
+    var latDirection = latDir.toString().toUpperCase();
+
+    var lonDegrees = parseFloat(lngDeg);
+    var lonMinutes = parseFloat(lngMin);
+    var lonSeconds = parseFloat(lngSec);
+    var lonDirection = lngDir.toString().toUpperCase();
+
+    var latDecimal = latDegrees + latMinutes / 60 + latSeconds / 3600;
+    if (latDirection == "S") {
+        latDecimal = -latDecimal;
+    }
+
+    var lonDecimal = lonDegrees + lonMinutes / 60 + lonSeconds / 3600;
+    if (lonDirection == "W") {
+        lonDecimal = -lonDecimal;
+    }
+
+    var utm = fromLatLon(latDecimal, lonDecimal);
+
+    // document.getElementById("u-zone").innerHTML = "UTM Zone: " + utm.zone + "<br>UTM Easting: " + utm.easting + "<br>UTM Northing: " + utm.northing;
+    document.getElementById("utm-zone").value = utm.zone
+    document.getElementById("utm-easting").value = utm.easting
+    document.getElementById("utm-northing").value = utm.northing;
+
+    // Put lat,lng marker
+    var utmMarker = L.marker([latDecimal,lonDecimal], {draggable : false}).addTo(map);
+    utmMarker.bindPopup(`Your Location after converting from DMS to UTM is: ${utmMarker.getLatLng()}`).openPopup();
+    map.setView([latDecimal, lonDecimal], 10);
+    utmMarker.setLatLng([latDecimal, lonDecimal])
+
+}
+
+function fromLatLon(lat, lon) {
+    // Adapted from http://www.uwgb.edu/dutchs/UsefulData/UTMFormulas.htm
+
+    var k0 = 0.9996;
+    var a = 6378137.0; // Semi-major axis of the ellipsoid (WGS84)
+    var f = 1 / 298.257223563; // Flattening of the ellipsoid (WGS84)
+    var b = a * (1 - f); // Semi-minor axis of the ellipsoid (WGS84)
+
+    var phi = lat * Math.PI / 180; // Convert latitude to radians
+    var lambda = lon * Math.PI / 180; // Convert longitude to radians
+
+    var zoneNumber = Math.floor((lon + 180) / 6) + 1; // Calculate UTM zone number
+
+    var centralMeridian = (zoneNumber - 1) * 6 - 180 + 3; // Calculate UTM central meridian
+    var lambda0 = centralMeridian * Math.PI / 180; // Convert central meridian to radians
+
+    var e = Math.sqrt((a*a - b*b) / (a*a)); // Eccentricity of the ellipsoid
+    var esq = e*e; // Square of the eccentricity
+
+    var N = a / Math.sqrt(1 - esq * Math.sin(phi)*Math.sin(phi)); // Radius of the curvature of the prime vertical
+    var T = Math.tan(phi) * Math.tan(phi); // T parameter
+    var C = esq * Math.cos(phi) * Math.cos(phi); // C parameter
+    var A = (lambda - lambda0) * Math.cos(phi); // A parameter
+    var M = a * ((1 - esq/4 - 3*esq*esq/64 - 5*esq*esq*esq/256) * phi - (3*esq/8 + 3*esq*esq/32 + 45*esq*esq*esq/1024) * Math.sin(2*phi) + (15*esq*esq/256 + 45*esq*esq*esq/1024) * Math.sin(4*phi) - (35*esq*esq*esq/3072) * Math.sin(6*phi)); // M parameter
+
+    var easting = k0 * N * (A + (1 - T + C) * A*A*A / 6 + (5 - 18*T + T*T + 72*C - 58*esq) * A*A*A*A*A / 120) + 500000; // Calculate UTM Easting
+    var northing = k0 * (M + N * Math.tan(phi) * (A*A / 2 + (5 - T + 9*C + 4*C*C) * A*A*A*A / 24 + (61 - 58*T + T*T + 600*C - 330*esq) * A*A*A*A*A*A / 720)); // Calculate UTM Northing
+
+    if (lat < 0) {
+        northing += 10000000; // Adjust Northing for southern hemisphere
+    }
+    // Determine the hemisphere (N or S)
+        var UTMhemisphere = easting >= 0 ? "N" : "S";
+
+    return {
+        easting: easting,
+        northing: northing,
+        zone: zoneNumber + UTMhemisphere
+    };
+}
+
+  
+
+
+
+
+
+
+
+
+
+
