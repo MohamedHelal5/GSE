@@ -285,7 +285,20 @@ a {
     transform: rotate(-360deg);
     transition: 0.4s all linear ;
 }
-
+.geo .geo-clear-btn {
+    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);     padding: 7px 12px ;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--main-transition-duration);
+    background-size: 200% auto;
+    border-radius: 6px;
+}
+.geo .geo-clear-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
 /* end geo */
 /* start map content*/
 .map-border {
@@ -586,6 +599,20 @@ a {
     transform: rotate(-360deg);
     transition: 0.4s all linear ;
 }
+.convert .convert-clear-btn {
+    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);     padding: 7px 12px ;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--main-transition-duration);
+    background-size: 200% auto;
+    border-radius: 6px;
+}
+.convert .convert-clear-btn:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
 /* end converting */
 /* start Footer */
 .footer {
@@ -593,7 +620,6 @@ a {
     font-size: 16px;
     text-align: center;
     color: white;
-    margin-top: 25px;
 }
 .footer .footer-content{
     padding-top: 20px;
