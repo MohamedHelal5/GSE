@@ -319,23 +319,6 @@ searchBtn.onclick = function () {
     map.setView([lat, lng], 10);
     makeMarker.setLatLng([lat, lng])
 }
-// // lat and lng single search
-// var singleSearchBtn = document.getElementById("single-search-btn");
-// singleSearchBtn.onclick = function () {
-//     var latValue = document.getElementById("search-lat").value
-//     var lngValue = document.getElementById("search-lng").value
-//     //circle
-//     var puttingCircle = L.circle([latValue, lngValue], {
-//         color : 'red',
-//         fillColor : '#f03',
-//         fillOpcaity: 0.5,
-//         radius : 10
-//     }).addTo(map)
-//     var puttingMarker = L.marker([latValue,lngValue], {draggable : false}).addTo(map);
-//     puttingMarker.bindPopup(`<b>Hello!</b><br>Your Location is: ${puttingMarker.getLatLng()}`)
-//     map.setView([latValue, lngValue], 10);
-//     puttingMarker.setLatLng([latValue, lngValue])
-// }
 // browser Print
 L.control.browserPrint().addTo(map);
 // map scale bar
@@ -379,10 +362,9 @@ map.on('click', function (e) {
             }, 100 * index);
         })
     }).addTo(map);
-    
 })
 }
-// ################################### Convert DMS to Lat,lng ######################################################
+// ######################## Convert DMS to Lat,lng #################################
 const convert = () => {
     const latD = parseFloat(document.getElementById("latD").value);
     const latM = parseFloat(document.getElementById("latM").value);
@@ -402,8 +384,7 @@ const convert = () => {
     map.setView([dmslat, dmslng], 10);
     dmsMarker.setLatLng([dmslat, dmslng])
 };
-// ############################################# Convert Lat,long To UTM  ###############################
-// Convert Lat,Long to UTM Coordinate
+// ############################### Convert Lat,long To UTM  ###############################
 function convertLatLongToUTM() {
     var lat = parseFloat(document.getElementById("lat").value);
     var long = parseFloat(document.getElementById("long").value);
@@ -454,12 +435,9 @@ function convertLatLongToUTM() {
     var UTMMarker = L.marker([lat,long], {draggable : false}).addTo(map);
     UTMMarker.bindPopup(`Your Location after converting from DD to DMS is: ${UTMMarker.getLatLng()}`).openPopup();
     map.setView([lat,long], 10);
-    UTMMarker.setLatLng([lat,long])
-
-        
+    UTMMarker.setLatLng([lat,long]);   
 }
-// #####################################################################################################
-
+// ############################# DD to DMS #######################################
 function convertDDtoDMS() {
     const lat = parseFloat(document.getElementById('dd-lat').value);
     const long = parseFloat(document.getElementById('dd-long').value);
@@ -487,8 +465,7 @@ function convertDDtoDMS() {
     map.setView([lat,long], 10);
     DDMarker.setLatLng([lat,long])
 }
-// #######################################################################################################
-
+// ######################### DMS To UTM ##################################
 function convertDMStoUTM() {
     // Get the DMS values from the form
   const latDeg = parseInt(document.getElementById('dms-latD').value);
@@ -499,7 +476,6 @@ function convertDMStoUTM() {
   const lngMin = parseInt(document.getElementById('dms-lngM').value);
   const lngSec = parseInt(document.getElementById('dms-lngS').value);
   const lngDir = parseInt(document.getElementById('dms-lngDir').value);
-    
 
     var latDegrees = parseFloat(latDeg);
     var latMinutes = parseFloat(latMin);
@@ -520,10 +496,8 @@ function convertDMStoUTM() {
     if (lonDirection == "W") {
         lonDecimal = -lonDecimal;
     }
-
     var utm = fromLatLon(latDecimal, lonDecimal);
 
-    // document.getElementById("u-zone").innerHTML = "UTM Zone: " + utm.zone + "<br>UTM Easting: " + utm.easting + "<br>UTM Northing: " + utm.northing;
     document.getElementById("utm-zone").value = utm.zone
     document.getElementById("utm-easting").value = utm.easting
     document.getElementById("utm-northing").value = utm.northing;
@@ -533,12 +507,8 @@ function convertDMStoUTM() {
     utmMarker.bindPopup(`Your Location after converting from DMS to UTM is: ${utmMarker.getLatLng()}`).openPopup();
     map.setView([latDecimal, lonDecimal], 10);
     utmMarker.setLatLng([latDecimal, lonDecimal])
-
 }
-
 function fromLatLon(lat, lon) {
-    // Adapted from http://www.uwgb.edu/dutchs/UsefulData/UTMFormulas.htm
-
     var k0 = 0.9996;
     var a = 6378137.0; // Semi-major axis of the ellipsoid (WGS84)
     var f = 1 / 298.257223563; // Flattening of the ellipsoid (WGS84)
@@ -568,7 +538,7 @@ function fromLatLon(lat, lon) {
         northing += 10000000; // Adjust Northing for southern hemisphere
     }
     // Determine the hemisphere (N or S)
-        var UTMhemisphere = easting >= 0 ? "N" : "S";
+    var UTMhemisphere = easting >= 0 ? "N" : "S";
 
     return {
         easting: easting,
@@ -576,15 +546,13 @@ function fromLatLon(lat, lon) {
         zone: zoneNumber + UTMhemisphere
     };
 }
-
-  
-
-
-
-
-
-
-
-
-
-
+// clear Geo inputs value
+function clearGeoAllValue() {
+    var geoInputsValue = document.querySelectorAll('.geo input')
+    geoInputsValue.forEach(input => input.value = "")
+}
+// clear Convert inputs value
+function clearConvertAllValue() {
+    var convertInputsValue = document.querySelectorAll('.convert input')
+    convertInputsValue.forEach(input => input.value = "")
+}
