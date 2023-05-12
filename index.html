@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSE</title>
+    <!-- google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300&display=swap" rel="stylesheet">
     <!-- bootstrap css file -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!--font awesome all css min file-->
@@ -15,8 +17,6 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- leaflet-routing-machine CSS file -->
     <link rel="stylesheet" href="css/leaflet-routing-machine.css">
-    <!-- google fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300&display=swap" rel="stylesheet">
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
@@ -99,7 +99,7 @@
         </button>
       </div>
       <!-- end carousel-->
-      <!-- start services -->
+      <!-- start geo -->
         <div class="container geo p-4" id="services">
             <div class="title mp-5 text-center">
               <a><span>Search</span></a>
@@ -179,12 +179,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-      <!-- end services -->
+            <div class="geo-clear text-center mt-4 mb-3">
+              <button class="geo-clear-btn px-4 py-2 fs-5 text-white" onclick="clearGeoAllValue()">Clear</button>
+            </div>
+          </div>
+          <!-- end geo -->
       <!-- start map -->
-    <div class="location">
+      <div class="location">
       <div class="map-content" id="map">
-          <div class="map-container">
+        <div class="map-container">
             <div class="map-border">
               <button class="map-home" title="home map view">
                 <i class="fa-solid fa-house"></i>
@@ -201,19 +204,19 @@
       </div>
     </div>
     <!-- end map -->
-          <!-- start converting -->
-          <div class="container convert p-4" id="Converting">
+    <!-- start converting -->
+    <div class="convert container p-4" id="Converting">
             <div class="title mp-5 text-center">
               <a><span>Convert</span></a>
               <p class="">Conversion between different geographic coordinates involves transforming a location's longitude and latitude values from one reference system to another.</p>
             </div>
             <div class="row mt-5">
-                <!-- box1 -->
-                <div class="box col-sm-12 col-md-6 col-lg-4">
-                  <div class="ribbon"><span>lat,long to UTM</span></div>
-                    <div class="latLongtoUTM-box">
-                      <div class="toUTM text-center">
-                        <div class="toUTM-content">
+              <!-- box1 -->
+              <div class="box col-sm-12 col-md-6 col-lg-4">
+                <div class="ribbon"><span>lat,long to UTM</span></div>
+                <div class="latLongtoUTM-box">
+                  <div class="toUTM text-center">
+                    <div class="toUTM-content">
                           <form class="toutm-form pb-2">
                             <label for="lat">Lat:</label>
                             <input type="text" id="lat">
@@ -234,7 +237,7 @@
                       </div>
                     </div>
                     <div class="info text-center">
-                        <span>Lat,Long to UTM Converter</span>
+                      <span>Lat,Long to UTM Converter</span>
                     </div>
                 </div>
                 <!-- box2 -->
@@ -262,7 +265,7 @@
                     </div>
                     <div class="info text-center">
                         <span>DD to DMS Converter</span>
-                    </div>
+                      </div>
                 </div>
                 <!-- box3 -->
                 <div class="box col-sm-12 col-md-6 col-lg-4">
@@ -272,11 +275,11 @@
                         <!-- DMS latitude -->
                         <div id="DMSlat" class="dmstoutm-lat text-center">
                           <span class="dms-lat-title">Lat :</span>
-                          <label for="latD">deg:</label>
+                          <label for="dms-latD">deg:</label>
                           <input type="number" class="dms-lat-deg" id="dms-latD" min="-90" max="90" step="1" placeholder="DD">
-                          <label for="latM">min:</label>
+                          <label for="dms-latM">min:</label>
                           <input type="number" class="dms-lat-min" id="dms-latM" min="0" max="59" step="1" placeholder="MM">
-                          <label for="latS">sec:</label>
+                          <label for="dms-latS">sec:</label>
                           <input type="number" class="dms-lat-sec" id="dms-latS" min="0" max="59" step="1" placeholder="SS">
                           <input type="text" class="dms-lat-dir " id="dms-latDir" placeholder="N/S">
                         </div>
@@ -284,11 +287,11 @@
                         <!-- DMS longitude -->
                         <div id="DMSlng" class="dmstoutm-long mt-3 text-center">
                           <span class="dms-lng-title">Long :</span>
-                          <label for="lngD">deg:</label>
+                          <label for="dms-lngD">deg:</label>
                           <input type="number" class="dms-lng-deg" id="dms-lngD" min="-180" max="180" step="1" placeholder="DDD">
-                          <label for="lngM">min:</label>
+                          <label for="dms-lngM">min:</label>
                           <input type="number" class="dms-lng-min" id="dms-lngM" min="0" max="59" step="1" placeholder="MM">
-                          <label for="lngS">sec:</label>
+                          <label for="dms-lngS">sec:</label>
                           <input type="number" class="dms-lng-sec " id="dms-lngS" min="0" max="59" step="1" placeholder="SS">
                           <input type="text" class="dms-lng-dir " id="dms-lngDir"  placeholder="E/W">
                         </div>
@@ -307,19 +310,22 @@
                       </div>
                     </div>
                     <div class="info text-center">
-                        <span>DMS to UTM Converter</span>
+                      <span>DMS to UTM Converter</span>
                     </div>
-                </div>
+                  </div>
+            </div>
+            <div class="convert-clear text-center mt-4 mb-3">
+              <button class="convert-clear-btn px-4 py-2 fs-5 text-white" onclick="clearConvertAllValue()">Clear</button>
             </div>
         </div>
       <!-- end converting -->
     <!-- start footer -->
     <div class="footer" id="footer">
         <div class="footer-content">
-            <div class="span1">
+          <div class="span1">
                     <span class="footer-span-one">
-                        &copy 2023 
-                        <span class="footer-tit">GSE</span>
+                      &copy 2023 
+                      <span class="footer-tit">GSE</span>
                          By : Mohamed Helal | GIS Developer
                     </span>
                 </div>
