@@ -433,7 +433,7 @@ function convertLatLongToUTM() {
 
     // Put lat,lng marker
     var UTMMarker = L.marker([lat,long], {draggable : false}).addTo(map);
-    UTMMarker.bindPopup(`Your Location after converting from DD to DMS is: ${UTMMarker.getLatLng()}`).openPopup();
+    UTMMarker.bindPopup(`Your Location after converting from Lat,Long to UTM is: ${UTMMarker.getLatLng()}`).openPopup();
     map.setView([lat,long], 10);
     UTMMarker.setLatLng([lat,long]);   
 }
