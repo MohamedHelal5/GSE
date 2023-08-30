@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSE</title>
-    <!-- google fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300&display=swap" rel="stylesheet">
     <!-- bootstrap css file -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!--font awesome all css min file-->
@@ -46,8 +44,21 @@
               <li class="nav-item">
                 <a class="nav-link p-lg-3" href="#map">Map</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item ">
                 <a class="nav-link p-lg-3" href="#Converting">Convert</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle p-lg-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Services
+                </a>
+                <ul class="dropdown-menu ">
+                  <li class="nav-item ">
+                    <a class="nav-link srv-hover" href="taqsi.html" target="_blank">Weather Data</a>
+                  </li>
+                  <li class="nav-item ">
+                    <a class="nav-link srv-hover" href="quake.html" target="_blank">Earthquake Data</a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -73,7 +84,7 @@
                   Engine
                   <i class="fa-solid fa-location-dot fa-bounce "></i> ]
                 </h4>
-              <p class="bg-secondary" style="--bs-bg-opacity: .5;" >With our user-friendly interface, you can easily search for any location around the globe and get accurate and up-to-date information on its coordinates, including latitude and longitude.</p>
+              <p class="bg-secondary" style="--bs-bg-opacity: .5;" > With our user-friendly interface, you can easily search for any location around the globe and obtain accurate, up-to-date information about its coordinates. Explore real-time weather data and global seismic activity information with ease.</p>
             </div>
           </div>
           <div class="carousel-item">
@@ -168,9 +179,11 @@
                 <div class="box col-sm-12 col-md-6 col-lg-4">
                   <div class="ribbon"><span>Find</span></div>
                     <div class="box-rm">
-                        <input type="text" id="rm-search" placeholder="Lat,Lng" class="rm-xy" required>
                         <br>
-                        <button id="leaflet-rm-btn" type="button" class="rm-search">route
+                        <button id="current-location-btn" type="button" class="rm-search">Your Current Location
+                            <i class="fa-sharp fa-solid fa-route fa-fade"></i>
+                        </button>
+                        <button id="clear-btn" type="button" class="clear-route">Clear Route
                             <i class="fa-sharp fa-solid fa-route fa-fade"></i>
                         </button>
                     </div>
@@ -182,7 +195,7 @@
             <div class="geo-clear text-center mt-4 mb-3">
               <button class="geo-clear-btn px-4 py-2 fs-5 text-white" onclick="clearGeoAllValue()">Clear</button>
             </div>
-          </div>
+        </div>
           <!-- end geo -->
       <!-- start map -->
       <div class="location">
@@ -194,13 +207,19 @@
               </button>
               <!-- map -->
               <div id="map" style="height: 70vh; width : 100%"></div>
+              <div class="weather-info" id="weather-data"></div>
               <!-- map -->
+              <div class="map-footer">
+                <span>
+                  <h6>You clicked the map at</h6> 
+                  <button id="copyButton" onclick="copyCoordinates()">Copy
+                    <i style="padding-left : 4px" class="fa-solid fa-copy fa-1x"></i>
+                  </button>
+                </span>
+                <input type="text" id="mapinfo" class="locationinfo" readonly>
+              </div>
             </div>
-          </div>
-          <div class="map-footer">
-            <span>You clicked the map at </span>
-            <input type="text" id="mapinfo" class="locationinfo">
-          </div>
+        </div>
       </div>
     </div>
     <!-- end map -->
@@ -323,25 +342,25 @@
     <div class="footer" id="footer">
         <div class="footer-content">
           <div class="span1">
-                    <span class="footer-span-one">
-                      &copy 2023 
-                      <span class="footer-tit">GSE</span>
-                         By : Mohamed Helal | GIS Developer
-                    </span>
-                </div>
-                <div class="span2">
-                    <span class="footer-span-two">
-                        Contact me 
-                        <a href="https://www.linkedin.com/in/mohamed-a-helal-/" target="_blank">
-                            <i class="fa-brands fa-linkedin fa-beat-fade"></i>
-                                <a href="mailto:moahamed.a.helal@gmail.com?subject=contact" class="link" style="text-decoration: none;" >
-                                    <i class="fa-solid fa-envelope fa-beat-fade" style="text-decoration: none;"></i>
-                                </a>
-                            </i>
-                        </a>
-                    </span>
-                </div>
-            </div>
+              <span class="footer-span-one">
+                &copy 2023 
+                <span class="footer-tit">GSE</span>
+                    By : Mohamed Helal | GIS Developer
+              </span>
+          </div>
+          <div class="span2">
+              <span class="footer-span-two">
+                  Contact me 
+                  <a href="https://www.linkedin.com/in/mohamed-a-helal-/" target="_blank">
+                      <i class="fa-brands fa-linkedin fa-beat-fade"></i>
+                          <a href="mailto:moahamed.a.helal@gmail.com?subject=contact" class="link" style="text-decoration: none;" >
+                              <i class="fa-solid fa-envelope fa-beat-fade" style="text-decoration: none;"></i>
+                          </a>
+                      </i>
+                  </a>
+              </span>
+          </div>
+        </div>
     </div>
     <!-- end footer -->
 
@@ -357,7 +376,6 @@
     <script src="js/leaflet-rm.min.js"></script>
     <!-- leaflet browser print -->
     <script src="js/leaflet.browser.print.min.js"></script>
-    <!-- leaflet measure  -->
     <!-- main js file -->
     <script src="js/main.js"></script>
 </body>
