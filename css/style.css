@@ -35,7 +35,11 @@ a {
     height: 40px;
     width: 40px;
 }
+.navbar .srv-hover:hover {
+    background: #d0d0d0;
+}
 /* end Navbar */
+
 /* start carousel */
 .carousel .carousel-item img{
     filter: blur(9px);
@@ -285,7 +289,8 @@ a {
     transform: rotate(-360deg);
     transition: 0.4s all linear ;
 }
-.geo .geo-clear-btn {
+.geo .geo-clear-btn,
+.geo .box-rm .clear-route  {
     background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);     padding: 7px 12px ;
     text-align: center;
     cursor: pointer;
@@ -293,10 +298,11 @@ a {
     transition: var(--main-transition-duration);
     background-size: 200% auto;
     border-radius: 6px;
-}
-.geo .geo-clear-btn:hover {
-    background-position: right center;
     color: #fff;
+}
+.geo .geo-clear-btn:hover,
+.geo .box-rm .clear-route:hover  {
+    background-position: right center;
     text-decoration: none;
 }
 /* end geo */
@@ -356,14 +362,44 @@ a {
     background: linear-gradient(0deg, #2196f3, #060c21, #F00000);
     border-radius: 5px;
 }
+.map-footer span button {
+    position: relative;
+    display: flex;
+    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);
+    padding: 3px 10px ;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--main-transition-duration);
+    background-size: 200% auto;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.map-footer span button:hover {
+    background-position: right center;
+    text-decoration: none;
+}
 .map-footer span {
     margin-top:20px;
 } 
-@media (max-width: 510px) {
+.map-footer span h6{
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+} 
+@media (max-width: 767px) {
     .map-footer span {
-        width: 200px;
-        text-align: center;
-        font-size: 12px;
+        width: 220px;
+    }
+    .map-footer span h6 {
+        font-size: 11px;
+    }
+    .map-footer span button {
+        font-size: 11px;
+        padding: 2px 5px;
+        margin-left: 8px
     }
     .map-footer .locationinfo{
         width: 250px;
@@ -371,18 +407,7 @@ a {
         font-size: 9px;
     }
 }
-@media (max-width: 300px) {
-    .map-footer span {
-        width: 150px;
-        text-align: center;
-        font-size: 12px;
-    }
-    .map-footer .locationinfo{
-        width: 200px;
-        text-align: center;
-        font-size: 8px;
-    }
-}
+
 /* for map icon */
 .leaflet-control-layers {
     margin: 2px 10px !important
@@ -396,6 +421,44 @@ a {
     margin-top: 2px;
 }
 /* for map icon */
+/* weather */
+.weather-info {
+    width: 230px;
+    height: 260px;
+    background-color: #fff;
+    position: absolute;
+    top: 40%;
+    z-index: 999;
+    font-size: 14px;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding: 8px;
+    line-height: 1.8;
+    overflow: scroll;
+}
+@media (max-width: 480px) {
+    .weather-info {
+        font-size: 10px;
+        width: 159px;
+        margin-left: 1px;
+        height: auto;
+        font-weight: bold;
+        top: 24%;
+    }
+    .geo .box-rm .clear-route {
+        margin-top: 10px;
+    }
+    .leaflet-routing-container {
+        position: absolute !important;
+        width: 195px !important; 
+        height: 230px !important;
+        overflow: scroll !important;
+        top: 380px !important;
+        right: 300% !important;
+        border-radius: 10px !important;
+    }
+}
+/* weather */
 /* end map content*/
 /* start converting */
 .convert {
