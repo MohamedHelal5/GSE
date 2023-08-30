@@ -1,7 +1,7 @@
 // map initialization
 var map = L.map('map').setView([30.033333, 31.233334], 7);
 // GIS Companies in egypt
-var EsriNA = L.marker([30.02626468661573, 31.459740530656436], {title: 'ESRI'}).addTo(map)
+var EsriNA = L.marker([30.02626468661573, 31.459740530656436], {draggable : false}).addTo(map)
 EsriNA.bindPopup(`<h3> Esri North Africa (Esri NA)</h3>
 <h4>The Science of Where <h4/>
 <p style = "font-size:9px">is the sole Esri distributor serving Egypt, Libya, Sudan, South Sudan and Chad markets. Esri NA, the company is focused on bringing latest GIS technology to its markets, raising geospatial awareness, supporting customers in building effective geospatial strategies, providing Esri products’ certified training and establishing a strong Esri partner network to serve market needs.</p>
@@ -287,19 +287,23 @@ var overlays = {
     "GIS Companies" : companies
 };
 L.control.layers(baseLayers, overlays).addTo(map);
+
 // GeoCoder location search
 L.Control.geocoder().addTo(map);
+
 // get x , y
 function onMapClick(e) {
-    document.getElementById("mapinfo").value = ` Lng (X) : ${e.latlng.lng} | lat (Y) : ${e.latlng.lat} `
+    document.getElementById("mapinfo").value = `Lat (Y) : ${e.latlng.lat} | Lng (X) : ${e.latlng.lng}`
 }
 map.on("click", onMapClick)
+
 // x,y popup
 let pop = L.popup()
 function mapPopup(e) {
-    pop.setLatLng(e.latlng).setContent( "lng (X) : "+ e.latlng.lng.toString() + "<br>" + " lat (Y) : " + e.latlng.lat.toString()).openOn(map)
+    pop.setLatLng(e.latlng).setContent(`Lat (Y) : ${e.latlng.lat.toString()} <br> Lng (X) : ${e.latlng.lng.toString()}`).openOn(map)
 }
 map.on("click", mapPopup)
+
 // search input and button by Lat,Lng
 var searchBtn = document.getElementById("xy-search-btn");
 searchBtn.onclick = function () {
@@ -329,41 +333,239 @@ L.control.scale({
 document.querySelector(".map-home").onclick = function () {
     map.setView([30.033333, 31.233334], 7)
 }
-var rmBtn = document.getElementById("leaflet-rm-btn");
-rmBtn.onclick = function () {
-    var rmlatandLng = document.getElementById("rm-search").value
-    var rmlatandLngArr = rmlatandLng.split(',');
-    var rmlat = rmlatandLngArr[0];
-    var rmlng = rmlatandLngArr[1];
-    //circle
-    var rmCircle = L.circle([rmlat, rmlng], {
-        color : 'red',
-        fillColor : '#f03',
-        fillOpcaity: 0.5,
-        radius : 10
-    }).addTo(map)
-    var rmMarker = L.marker([rmlat,rmlng], {draggable : true}).addTo(map);
-    rmMarker.bindPopup(`<b>Hello!</b><br>Your Location is: ${rmMarker.getLatLng()}`)
-    map.setView([rmlat, rmlng], 10);
-    rmMarker.setLatLng([rmlat, rmlng])
-    // rm
-map.on('click', function (e) {
-    L.Routing.control({
-        waypoints: [
-            L.latLng(rmlat,rmlng),
-            L.latLng(e.latlng.lat, e.latlng.lng)
-        ],
-        routeWhileDragging: true,
-        geocoder: L.Control.Geocoder.nominatim()
+
+
+// Copy Coordinates
+async function copyCoordinates() {
+  var mapInfoInput = document.getElementById("mapinfo");
+  var copyButton = document.getElementById("copyButton");
+
+  // Extract the numerical values using regular expressions
+  var latPattern = /Lat \(Y\) : ([\d.-]+)/;
+  var lngPattern = /Lng \(X\) : ([\d.-]+)/;
+  
+  var latMatch = mapInfoInput.value.match(latPattern);
+  var lngMatch = mapInfoInput.value.match(lngPattern);
+  
+  if (latMatch && lngMatch) {
+      var lat = latMatch[1];
+      var lng = lngMatch[1];
+      var textToCopy = lat + "," + lng;
+      
+      try {
+          await navigator.clipboard.writeText(textToCopy);
+
+          // Change icon to checkmark
+          copyButton.innerHTML = 'Done <i style="padding-left : 5px;" class="fa-solid fa-check fa-1x"></i>';
+          
+          // After 1.5 seconds, revert back to the copy icon
+          setTimeout(function() {
+            copyButton.innerHTML = 'Copy <i style="padding-left : 5px;" class="fa-solid fa-copy fa-1x"></i>';
+          }, 1500);
+
+      } catch (error) {
+        console.error("Copy failed:", error);
+        alert("Copy failed. Please try again.");
+      }
+    } else {
+      alert("No coordinates found.");
+    }
+  }
+  
+//  map routing
+let startLatLng = null;
+let endLatLng = null;
+let routingControl = null;
+let currentLocationMarker = null;
+  
+// routing options
+function createButton(label, container) {
+    var btn = L.DomUtil.create('button', '', container);
+    btn.setAttribute('type', 'button');
+    btn.innerHTML = label;
+    return btn;
+}
+
+// get Your Current Location
+const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showLocation, showError);
+  } else {
+    alert("Your browser doesn't support geolocation");
+  }
+};
+
+const showLocation = (position) => {
+const locationLat = position.coords.latitude;
+const locationLong = position.coords.longitude;
+const locationMarker = L.marker([locationLat, locationLong], { draggable: false }).addTo(map);
+locationMarker.bindPopup(`<b>Hello!</b><br>Your Location is: ${locationMarker.getLatLng()}`).openPopup();
+currentLocationMarker = locationMarker;
+const locationCircle = L.circle([locationLat, locationLong], {
+  color: 'red',
+  fillColor: '#f03',
+  fillOpacity: 0.5,
+  radius: 10
+}).addTo(map);
+
+locationMarker.setLatLng([locationLat, locationLong])
+locationCircle.setLatLng([locationLat, locationLong])
+map.setView([locationLat, locationLong], 13);
+};
+
+const showError = (error) => {
+switch (error.code) {
+  case error.PERMISSION_DENIED:
+  alert("Access to your location was not allowed.");
+  break;
+  case error.POSITION_UNAVAILABLE:
+  alert("Location information is unavailable.");
+  break;
+  case error.TIMEOUT:
+  alert("The deadline for obtaining the location has expired.");
+  break;
+  case error.UNKNOWN_ERROR:
+  alert("An unknown error occurred.");
+  break;
+}
+};
+
+const locBtn = document.getElementById("current-location-btn");
+locBtn.addEventListener("click", getLocation)
+// Find Route From Your Current Location  
+map.on('click', function(e) {
+
+    if (currentLocationMarker) {
+      // تعيين احداثيات النقطة الأولى
+      startLatLng = currentLocationMarker.getLatLng();
+    } else if (!endLatLng) {
+      // تعيين احداثيات النقطة الثانية
+      endLatLng = e.latlng;
+    }
+    // تحقق مما إذا كانت النقطتين محددة
+    if (startLatLng && endLatLng) {
+      // إزالة الطريق السابق إن وجد
+      if (routingControl) {
+        routingControl.remove();
+      }
+
+    var routingControl = L.Routing.control({
+      waypoints: [
+        L.latLng(startLatLng) // Start from Current-location Marker
+      ],
+      routeWhileDragging: true,
+      reverseWaypoints: true,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      lineOptions: {
+        styles: [{ color: 'black', opacity: 0.9, weight: 4 }]
+      },
+      geocoder: L.Control.Geocoder.nominatim()
     }).on('routesfound', function(e){
         e.routes[0].coordinates.forEach(function (coord, index){
-            setTimeout(() => {
-                markertrack.setLatLng(coord.lat, coord.lng)
-            }, 100 * index);
+          setTimeout(() => {
+            markertrack.setLatLng(coord.lat, coord.lng)
+          }, 100 * index);
         })
+        const clearLayers = () => {
+
+          map.eachLayer((layer) => {
+            
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          }),
+          map.eachLayer((layerCircle) => {
+            if (layerCircle instanceof L.Circle) {
+              map.removeLayer(layerCircle);
+            }
+          }),
+          routingControl.remove()
+        };
+      
+        const clearButton = document.getElementById("clear-btn");
+        clearButton.addEventListener("click", clearLayers);       
+      
     }).addTo(map);
+
+    var container = L.DomUtil.create('div'),
+      // startBtn = createButton('Start from this location', container),
+      destBtn = createButton('Go to this location', container);
+    var routingControl;
+  
+    // L.DomEvent.on(startBtn, 'click', function() {
+    //   routingControl.spliceWaypoints(0, 1, e.latlng);
+    //   map.closePopup();
+    // });
+  
+    L.DomEvent.on(destBtn, 'click', function() {
+      routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, e.latlng);
+      map.closePopup();
+    });
+  
+    L.popup()
+      .setContent(container)
+      .setLatLng(e.latlng)
+      .openOn(map);
+
+      // إعادة تعيين النقطتين
+      startLatLng = null;
+      endLatLng = e.latlng;
+    }
 })
-}
+
+// weather data
+map.on("click", (e) => {
+  // Retrieve the latitude and longitude from the clicked event
+  var weatherInfo = document.getElementById("weather-data");
+  var wealatitude = e.latlng.lat;
+  var wealongitude = e.latlng.lng;
+
+  // Use the latitude and longitude to fetch the weather information
+  var url =
+    "https://api.openweathermap.org/data/2.5/weather?lat=" +
+    wealatitude +
+    "&lon=" +
+    wealongitude +
+    "&appid=16f2ce4fb709f05385a14884a6df3775";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      // Update the weather information div
+      var temperatureKelvin = response.main.temp + " °K";
+      var temperatureCelsius = (response.main.temp - 273.15).toFixed(2) + " °C";
+      // var minTemperatureCelsius = (response.main.temp_min - 273.15).toFixed(2) + " °C";
+      var maxTemperatureCelsius = (response.main.temp_max - 273.15).toFixed(2) + " °C";
+      var clouds = response.clouds.all + " %";
+      var pressure = response.main.pressure + " hPa";
+      var humidity = response.main.humidity + " %";
+      var windSpeed = response.wind.speed + " meter/sec";
+      var windDirectionDegree = response.wind.deg + " °";
+      var weatherDescription = response.weather[0].description;
+      var country = response.sys.country;
+      weatherInfo.innerHTML = response.weather[0].description;
+
+      // Display the weather information
+      weatherInfo.innerHTML = `<span style="text-decoration: underline; font-weight: bold;">Weather Data :</span> <br>
+      <span style="color:#0d6bfd">Temperature: </span>${temperatureCelsius} / ${temperatureKelvin}<br>
+      <span style="color:#0d6bfd">max: </span>${maxTemperatureCelsius}<br>
+      <span style="color:#0d6bfd">Pressure: </span>${pressure}</span><br>
+      <span style="color:#0d6bfd">Humidity: </span>${humidity}</span><br>
+      <span style="color:#0d6bfd">Wind Speed: </span>${windSpeed}</span><br>
+      <span style="color:#0d6bfd">Wind Direction Degree: </span>${windDirectionDegree}</span><br>
+      <span style="color:#0d6bfd">Clouds: </span>${clouds}<br>
+      <span style="color:#0d6bfd">country: </span>${country}<br>
+      <span style="color:#0d6bfd">Weather: </span>${weatherDescription}`;
+    } else {
+      weatherInfo.innerHTML = "Error fetching weather data. Please try again.";
+    }
+  };
+  xhr.send();
+})
+
 // ######################## Convert DMS to Lat,lng #################################
 const convert = () => {
     const latD = parseFloat(document.getElementById("latD").value);
@@ -509,6 +711,8 @@ function convertDMStoUTM() {
     utmMarker.setLatLng([latDecimal, lonDecimal])
 }
 function fromLatLon(lat, lon) {
+    // Adapted from http://www.uwgb.edu/dutchs/UsefulData/UTMFormulas.htm
+
     var k0 = 0.9996;
     var a = 6378137.0; // Semi-major axis of the ellipsoid (WGS84)
     var f = 1 / 298.257223563; // Flattening of the ellipsoid (WGS84)
