@@ -1,2 +1,2 @@
 # GSE
-Geo search Engine
+Geo Search Engine
