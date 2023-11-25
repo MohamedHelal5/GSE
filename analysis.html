@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geospatial Analysis</title>
+
+    <!-- google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300&display=swap" rel="stylesheet">
+    <!-- bootstrap css file -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- font awesome css files -->
+    <link rel="stylesheet" href="css/all.min.css">
+    <!-- Normalize CSS file -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Analysis CSS File -->
+    <link rel="stylesheet" href="css/analysis.css">
+    <!-- ArcGIS API for JS : CSS file-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
+
+</head>
+
+<body>
+
+    <!-- start Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#carouselExampleCaptions">
+                <img src="img/logo.png" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active p-lg-3" aria-current="page" target="_blank" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-lg-3" href="index.html" target="_blank">Map</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link p-lg-3" href="#Converting" target="_blank">Convert</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle p-lg-3" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="taqsi.html" target="_blank">Weather Data</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="quake.html" target="_blank">Earthquake Data</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="Load.html" target="_blank">Load Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- start URL -->
+
+    <div class="url">
+        <div class="container">
+            <div class="url-head">
+                <h3 class="url-title">Geospatial Analysis</h3>
+                <span class="url-info">You can perform spatial analyses on both the layers you add to the map and the
+                    shapes you draw on the map using the Sketch tool.
+                </span>
+            </div>
+            <div class="url-data">
+                <input type="text" class="jsonUrl-Inpu" id="geojsonUrl" name="geojsonUrl" placeholder="Enter URL">
+                <button id="loadButton" class="load-btn">Load</button>
+            </div>
+            <div class="analysis-btns">
+                <div class="div1">
+                    <button id="intersect-analysis-Button" class="intersect-btn">Intersect Analysis</button>
+                    <button id="containsButton" class="contains-btn">Contains Analysis</button>
+                </div>
+                <div class="div2">
+                    <button id="overlapAnalysisButton" class="overlap-btn">OverLaps Analysis</button>
+                    <button id="equalsAnalysisButton" class="equals-btn">Equals Analysis</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End URL -->
+
+    <!-- Start Map -->
+    <div class="map-content" id="mapView">
+        <div class="container">
+            <div class="map-border">
+                <!-- map -->
+                <div class="map" id="viewDiv"></div>
+                <div id="resultsDiv">
+                    <div id="result1"></div>
+                    <div id="result2"></div>
+                    <div id="result3"></div>
+                </div>
+                <!-- map -->
+            </div>
+        </div>
+    </div>
+
+    <!-- End Map -->
+
+    <!-- start footer -->
+    <div class="footer" id="footer">
+        <div class="footer-content">
+            <div class="span1">
+                <span class="footer-span-one">
+                    &copy 2023
+                    <span class="footer-tit">GSE</span>
+                    <br>
+                    By : Mohamed Helal | GIS Developer
+                    <a href="https://www.linkedin.com/in/mohamed-a-helal-/" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <a href="mailto:moahamed.a.helal@gmail.com?subject=contact" class="link"
+                            style="text-decoration: none;">
+                            <i class="fa-solid fa-envelope" style="text-decoration: none;"></i>
+                        </a>
+                        </i>
+                    </a>
+                </span>
+            </div>
+            <div class="span2">
+                <span class="footer-span-two">
+                    Copyright &copy; All Right Reserved
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+
+    <!-- bootstrap js file -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- ArcGIS API for JS : JS file -->
+    <script src="https://js.arcgis.com/4.28/"></script>
+    <!-- Analysis Js File -->
+    <script src="js/analysis.js"></script>
+</body>
+
+</html>

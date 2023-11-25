@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSE - Loading Data</title>
+
+    <!-- google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300&display=swap" rel="stylesheet">
+    <!-- bootstrap css file -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- font awesome css files -->
+    <link rel="stylesheet" href="css/all.min.css">
+    <!-- Normalize CSS file -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Load CSS File -->
+    <link rel="stylesheet" href="css/load.css">
+    <!-- ArcGIS SDK CSS File -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+</head>
+
+<body>
+
+    <!-- start Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#carouselExampleCaptions">
+                <img src="img/logo.png" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active p-lg-3" aria-current="page" target="_blank" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-lg-3" href="index.html" target="_blank">Map</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link p-lg-3" href="#Converting" target="_blank">Convert</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle p-lg-3" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="taqsi.html" target="_blank">Weather Data</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="quake.html" target="_blank">Earthquake Data</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link srv-hover" href="Load.html" target="_blank">Load Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Start Data -->
+    <div class="data">
+        <div class="container">
+            <div class="title">
+                <h3 class="visual-title">Data Visualization</h3>
+                <p>You can visualize ArcGIS Server service using its REST URL and showcase GeoJSON data by simply
+                    providing a valid URL. Your data will then be seamlessly and creatively visualized on the map.
+                </p>
+            </div>
+            <!-- ArcServer -->
+            <div class="arcserver">
+                <!-- Input For ArcServer Service REST URL -->
+                <input class="arcserver-input" type="text" placeholder="Enter ArcGIS Service REST URL" id="serviceUrl">
+                <button class="btn btn-primary btn-sm" id="loadServerDataButton">Load ArcServer Data</button>
+                <!-- Alert ArcServer Msg -->
+                <div id="alertArcServiceMessage"></div>
+            </div>
+
+            <!-- GeoJSON -->
+            <div class="geojson">
+                <!-- Input For GeoJSON URL -->
+                <input class="geojson-input" type="text" placeholder="Enter GeoJSON URL" id="geojsonUrl">
+                <button class="btn btn-primary btn-sm" id="loadButton">Load GeoJSON Data</button>
+                <!-- Alert geoJson Msg -->
+                <div id="alertGeoJSONMessage"></div>
+            </div>
+
+            <!-- Inputs Clear Button -->
+            <div class="clear">
+                <button class="btn btn-success btn-sm" id="clr-btn">Clear</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Data -->
+
+
+    <!-- Start Map -->
+    <div class="map-content" id="mapView">
+        <div class="container">
+            <div class="map-border">
+                <!-- map -->
+                <div class="map" id="viewDiv"></div>
+                <!-- map -->
+            </div>
+        </div>
+    </div>
+
+    <!-- End Map -->
+
+    <!-- start footer -->
+    <div class="footer" id="footer">
+        <div class="footer-content">
+            <div class="span1">
+                <span class="footer-span-one">
+                    &copy 2023
+                    <span class="footer-tit">GSE</span>
+                    <br>
+                    By : Mohamed Helal | GIS Developer
+                    <a href="https://www.linkedin.com/in/mohamed-a-helal-/" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <a href="mailto:moahamed.a.helal@gmail.com?subject=contact" class="link"
+                            style="text-decoration: none;">
+                            <i class="fa-solid fa-envelope" style="text-decoration: none;"></i>
+                        </a>
+                        </i>
+                    </a>
+                </span>
+            </div>
+            <div class="span2">
+                <span class="footer-span-two">
+                    Copyright &copy; All Right Reserved
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+
+    <!-- bootstrap js file -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- ArcGIS API for JS : JS file -->
+    <script src="https://js.arcgis.com/4.28/"></script>
+    <!-- Load Js File -->
+    <script src="js/load.js"></script>
+</body>
+
+</html>
