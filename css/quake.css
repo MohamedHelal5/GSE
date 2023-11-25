@@ -2,29 +2,36 @@
 * {
     box-sizing: border-box;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 body {
     font-family: 'Cairo', Arial, Helvetica, sans-serif;
     margin: 0;
 }
+
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 a {
     text-decoration: none;
 }
+
 *:focus {
     outline: none;
 }
+
 /* end global */
 /* start side */
 .Earthquake {
     display: flex;
 }
+
 .side {
     position: relative;
     background-color: #333333;
@@ -32,11 +39,13 @@ a {
     text-align: center;
     width: 20%;
 }
+
 .side .side-title {
     margin: 20px 0;
     position: relative;
 }
-.side .side-title a{
+
+.side .side-title a {
     position: relative;
     width: 130px;
     display: block;
@@ -45,9 +54,10 @@ a {
     border-radius: 10px;
     text-decoration: none;
     color: black;
-    background: linear-gradient(90deg, rgba(0,97,142,1) 17%, rgba(38,207,242,1) 79%);
+    background: linear-gradient(90deg, rgba(0, 97, 142, 1) 17%, rgba(38, 207, 242, 1) 79%);
 }
-.side .side-title a i{
+
+.side .side-title a i {
     z-index: 999;
     color: black;
     position: absolute;
@@ -55,6 +65,7 @@ a {
     display: block;
     margin-top: 10px;
 }
+
 .side .side-title a span {
     height: 80%;
     width: 90%;
@@ -67,13 +78,16 @@ a {
     font-size: 19px;
     transform: translate(-50%, -50%);
 }
+
 .side .side-title a:hover {
     animation: rotate 0.4s linear infinite;
-    background: radial-gradient(circle, rgba(17,147,187,1) 0%, rgba(25,187,156,1) 100%);
+    background: radial-gradient(circle, rgba(17, 147, 187, 1) 0%, rgba(25, 187, 156, 1) 100%);
 }
+
 .side .side-title a:hover i {
     color: #19bb9c;
 }
+
 .side .side-title::before {
     content: "";
     width: 65px;
@@ -84,6 +98,7 @@ a {
     left: 50%;
     transform: translateX(-50%);
 }
+
 .side .side-title::after {
     content: "";
     width: 9px;
@@ -94,38 +109,45 @@ a {
     left: 50%;
     transform: translateX(-50%);
 }
+
 .side .search {
     padding: 20px 10px 10px;
     margin-top: 20px;
 }
-.side .search form label{
+
+.side .search form label {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 10px;
 }
-.side .search h2{
+
+.side .search h2 {
     font-size: 20px;
     text-align: center;
 }
-.side .search label{
+
+.side .search label {
     font-size: 15px;
     padding: 0 5px
 }
-.side .search input{
+
+.side .search input {
     border: 1px solid #ccc;
     height: 19px;
     font-size: 14px;
     padding: 10px 5px;
     margin: 5px 0 10px 0;
 }
-.side .search .search-footer{
+
+.side .search .search-footer {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 10px;
 }
-.side .search .search-footer .eq-searchBtn{
+
+.side .search .search-footer .eq-searchBtn {
     padding: 8px 12px;
     background-color: #19bb9c;
     outline: none;
@@ -136,6 +158,7 @@ a {
     border-radius: 5px;
     cursor: pointer;
 }
+
 .side-footer {
     padding: 25px 10px;
     position: absolute;
@@ -144,20 +167,25 @@ a {
     font-size: 16px;
     width: 100%;
 }
+
 .side-footer i {
     color: #bdb0b0;
     padding: 5px;
 }
+
 .side-footer .span1 span:hover i {
     color: #19bb9c;
 }
+
 .side-footer a:hover i {
     color: #19bb9c;
 }
+
 .side-footer .special {
     color: #19bb9c;
     font-weight: bold;
 }
+
 /* end side */
 /* start map */
 .map {
@@ -165,10 +193,12 @@ a {
     width: 100%;
     height: 100vh;
 }
+
 .map-view {
     float: right;
     width: 80%;
 }
+
 .map-home {
     position: absolute;
     top: 80px;
@@ -177,11 +207,12 @@ a {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: #fff;
-    border: 2px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
     background-clip: padding-box;
     cursor: pointer;
     z-index: 99;
 }
+
 .locationinfo {
     position: absolute;
     color: #fff;
@@ -191,7 +222,7 @@ a {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: #060c21;
-    border: 2px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
     background-clip: border-box;
     cursor: pointer;
     width: 600px;
@@ -202,6 +233,7 @@ a {
     border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 1 100%;
     z-index: 99;
 }
+
 /* end map */
 /* start modal */
 .Earthquake-modal-overlay {
@@ -213,6 +245,7 @@ a {
     align-items: center;
     justify-content: center;
 }
+
 .Earthquake-modal-overlay .Earthquake-modal {
     max-width: 800px;
     width: 100%;
@@ -224,6 +257,7 @@ a {
     padding: 10px;
     z-index: 999;
 }
+
 .Earthquake-modal-overlay .Earthquake-modal .modal-content {
     position: relative;
     background: white;
@@ -232,13 +266,15 @@ a {
     width: 785px;
     overflow: scroll;
 }
-.Earthquake-modal-overlay .Earthquake-modal .modal-content ul li{
+
+.Earthquake-modal-overlay .Earthquake-modal .modal-content ul li {
     font-size: 15px;
     line-height: 2;
     padding-left: 10px;
     text-indent: 20px;
 }
-.Earthquake-modal-overlay .Earthquake-modal .modal-content ul li:after{
+
+.Earthquake-modal-overlay .Earthquake-modal .modal-content ul li:after {
     content: "";
     position: relative;
     height: 1px;
@@ -249,12 +285,15 @@ a {
     transform: translate(50%, 50%);
     border-color: transparent transparent black transparent;
 }
-.Earthquake-modal-overlay .Earthquake-modal .modal-header{
+
+.Earthquake-modal-overlay .Earthquake-modal .modal-header {
     text-align: center;
 }
+
 .Earthquake-modal-overlay .Earthquake-modal .modal-header .sorting {
     margin-bottom: 10px;
 }
+
 .modal-header .sorting .magn-sort label {
     font-size: 16px;
     font-weight: bold;
@@ -264,15 +303,18 @@ a {
     padding: 2px 5px;
     border-radius: 6px;
 }
-.modal-header .sorting  .magn-sort select{
+
+.modal-header .sorting .magn-sort select {
     position: relative;
     cursor: pointer;
 }
+
 .Earthquake-modal-overlay .Earthquake-modal .modal-footer {
     margin-top: 10px;
     text-align: end;
 }
-.Earthquake-modal-overlay .modal-footer .close-btn{
+
+.Earthquake-modal-overlay .modal-footer .close-btn {
     padding: 8px 12px;
     background-color: #19bb9c;
     outline: none;
@@ -283,47 +325,58 @@ a {
     border-radius: 5px;
     cursor: pointer;
 }
+
 /* end modal */
 /* start footer */
 .footer {
     background-color: #2c4755;
     font-size: 16px;
     text-align: center;
-    color: white; 
+    color: white;
     padding: 15px 0;
 }
-.footer .span2{
+
+.footer .span2 {
     padding: 5px 0 0 0;
 }
+
 .footer i {
     color: white;
     padding: 0 3px;
 }
+
 .footer a:hover i {
     color: #19bb9c;
 }
+
 /* end footer */
 /* start arcgis api */
 .esri-search {
     width: 180px !important;
 }
+
 .esri-ui-inner-container {
     top: 11px !important;
     right: 5px !important;
     left: 5px !important;
 }
+
 .esri-input::placeholder {
     font-size: 13px !important;
 }
+
 .esri-menu {
     font-size: 13px !important;
 }
+
 .esri-feature__text {
     line-height: 1 !important;
 }
+
 .esri-feature__content-element {
     margin-bottom: 7px !important;
 }
+
 /* end arcgis maps api */
 
 
@@ -332,68 +385,83 @@ a {
         width: 33%;
         float: left;
     }
+
     .side .side-title {
         margin: 10px 0;
     }
-    .side .side-title a{
+
+    .side .side-title a {
         padding: 30px 40px;
         width: 95px;
     }
-    .side .side-title a i{
+
+    .side .side-title a i {
         font-size: 15px;
         margin-top: 5px;
     }
+
     .side .side-title a span {
         height: 80%;
         width: 90%;
         line-height: 38px;
         font-size: 14px;
     }
+
     .side .side-title::before {
         width: 58px;
         height: 3px;
         bottom: -13px;
     }
+
     .side .side-title::after {
         width: 9px;
         height: 10px;
         bottom: -10px;
         left: 50%;
     }
-    .side .search{
+
+    .side .search {
         margin-top: 50px;
         padding: 5px 0;
     }
-    .side .search h2{
+
+    .side .search h2 {
         font-size: 14px;
         text-align: center;
         margin: 20px 0;
     }
-    .side .search label{
+
+    .side .search label {
         font-size: 11px;
         font-weight: bold;
     }
+
     .side .search input {
         width: 90px;
         text-align: center;
         margin: 5px 0 10px 0;
-        font-size: 11px !important; 
+        font-size: 11px !important;
     }
-    .side .search .search-footer .search-btn{
+
+    .side .search .search-footer .search-btn {
         padding: 6px 8px;
         font-size: 12px;
         font-weight: bold;
     }
+
     .side-footer {
         font-size: 13px;
         padding: 10px 3px 25px;
     }
+
     .side-footer i {
         padding: 2px;
     }
+
     .side-footer .span2 {
         font-size: 12px;
     }
+
     .Earthquake-modal-overlay .Earthquake-modal {
         max-width: 600px;
         width: 99%;
@@ -401,39 +469,48 @@ a {
         height: auto;
         padding: 5px;
     }
-    .Earthquake-modal-overlay .Earthquake-modal .modal-header h2{
+
+    .Earthquake-modal-overlay .Earthquake-modal .modal-header h2 {
         margin: 5px;
         font-size: 13px;
     }
+
     .Earthquake-modal-overlay .Earthquake-modal .modal-header .sorting {
         margin-bottom: 5px;
     }
+
     .modal-header .sorting .magn-sort label {
         font-size: 12px;
         margin-right: 5px;
         padding: 2px 4px;
     }
-    .modal-header .sorting  .magn-sort select{
+
+    .modal-header .sorting .magn-sort select {
         font-size: 12px;
     }
+
     .Earthquake-modal-overlay .Earthquake-modal .modal-content {
         height: 400px;
         width: auto;
         overflow: scroll;
     }
-    .Earthquake-modal-overlay .Earthquake-modal .modal-content ul li{
+
+    .Earthquake-modal-overlay .Earthquake-modal .modal-content ul li {
         font-size: 8px;
         padding-left: 5px;
         font-weight: bold;
         text-indent: 15px;
     }
+
     .Earthquake-modal .modal-footer {
         margin-top: 8px;
     }
+
     .Earthquake-modal-overlay .modal-footer .close-btn {
         padding: 5px;
         font-size: 13px;
     }
+
     .locationinfo {
         font-size: 10px;
         top: 0px;
@@ -442,21 +519,25 @@ a {
         width: 260px;
         height: 30px;
     }
+
     /* map home icon */
     .map-home {
         top: 120px;
         left: 4px;
         padding: 6px;
     }
+
     /* zoom in , out icons */
     .esri-ui-corner .esri-component {
         position: absolute;
         top: 40px;
     }
-    .esri-popup__header .esri-popup__header-container .esri-widget__heading{
+
+    .esri-popup__header .esri-popup__header-container .esri-widget__heading {
         font-size: 10px !important;
         position: relative !important;
     }
+
     .esri-popup__header .esri-popup__header-container .esri-widget__heading::after {
         content: "click to get data";
         position: absolute;
@@ -470,7 +551,8 @@ a {
         font-size: 11px;
         padding: 2px;
     }
-    .esri-popup__content  {
+
+    .esri-popup__content {
         display: flex !important;
         flex-flow: column nowrap !important;
         flex: 1 1 auto !important;
@@ -479,17 +561,21 @@ a {
         overflow: auto !important;
         line-height: normal !important;
     }
+
     /* for earthquake popup data */
     .esri-feature-content {
         font-size: 10px !important;
     }
-    .esri-popup__content div.esri-feature__content-node  {
+
+    .esri-popup__content div.esri-feature__content-node {
         font-size: 10px !important;
         height: 105px !important;
     }
+
     .esri-popup__header-container--button {
         padding-bottom: 15px !important;
     }
+
     .esri-popup__main-container {
         top: 50%;
         font-size: 11px;
@@ -497,6 +583,7 @@ a {
         height: fit-content;
         overflow: scroll;
     }
+
     /* for modal li number */
     .li-num {
         font-size: 10px !important;
@@ -505,6 +592,7 @@ a {
         left: 0px !important;
         font-weight: normal !important;
     }
+
     /* for modal li number */
     .arrow-icon {
         margin-left: 1px !important;

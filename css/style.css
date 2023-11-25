@@ -2,28 +2,45 @@
 :root {
     --main-color: #2196f3;
     --secondary-color: #1787e0;
-    --main-transition-duration : 0.4s;
-    --section-background : #ececec
+    --main-transition-duration: 0.4s;
+    --section-background: #ececec
 }
+
 @media (min-width: 992px) {
-    *, ::after, ::before {
+
+    *,
+    ::after,
+    ::before {
         box-sizing: content-box !important;
     }
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 body {
     font-family: 'Cairo', Arial, Helvetica, sans-serif;
 }
+
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 a {
     text-decoration: none;
 }
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f7f7f7;
+}
+
 /* end global */
 /* start Navbar */
 .navbar .nav-link.active,
@@ -31,57 +48,71 @@ a {
 .navbar .nav-link:focus {
     color: var(--main-color);
 }
+
 .navbar .navbar-brand img {
     height: 40px;
     width: 40px;
 }
+
 .navbar .srv-hover:hover {
     background: #d0d0d0;
 }
+
 /* end Navbar */
 
 /* start carousel */
-.carousel .carousel-item img{
+.carousel .carousel-item img {
     filter: blur(9px);
 }
+
 .carousel-caption i {
     color: var(--main-color);
 }
-.carousel .carousel-item  p {
+
+.carousel .carousel-item p {
     position: relative;
-    animation : textfade 1s steps(24) backwards;
+    animation: textfade 1s steps(24) backwards;
 }
+
 @keyframes textfade {
-    0%,25% {
+
+    0%,
+    25% {
         opacity: .1;
     }
+
     50% {
         opacity: .3;
     }
+
     75% {
         opacity: .7;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 @media (min-width: 992px) {
     .carousel-caption {
         bottom: 50%;
         font-size: 30px;
     }
 }
+
 @media (max-width: 992px) {
     .carousel-caption {
         font-size: 16px;
     }
 }
+
 /* end carousel */
 /* start geo */
 .geo {
     position: relative;
-    background-color: #f7f7f7;
 }
+
 .geo .title a,
 .convert .title a {
     position: relative;
@@ -90,15 +121,16 @@ a {
     padding: 35px 35px;
     margin: 0 auto;
     border-radius: 10px;
-    text-decoration: none;
     color: black;
-    background: linear-gradient(90deg, rgba(0,97,142,1) 17%, rgba(38,207,242,1) 79%);
+    background: linear-gradient(90deg, rgba(0, 97, 142, 1) 17%, rgba(38, 207, 242, 1) 79%);
 }
+
 .geo .title a:hover,
 .convert .title a:hover {
     animation: rotate 0.4s linear infinite;
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
 }
+
 .geo .title a span,
 .convert .title a span {
     height: 88%;
@@ -112,6 +144,40 @@ a {
     font-size: 25px;
     transform: translate(-50%, -50%);
 }
+
+@media (max-width: 992px) {
+    .convert .title a span {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .geo .title a,
+    .convert .title a {
+        width: 80px;
+        padding: 24px 25px;
+        border-radius: 6px;
+    }
+
+    .geo .title a span,
+    .convert .title a span {
+        height: 80%;
+        width: 92%;
+        top: 50%;
+        left: 50%;
+        line-height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .geo .title p,
+    .convert .title p {
+        padding-top: 8px;
+        font-size: 12px;
+    }
+}
+
 .geo .box {
     background-color: white;
     position: relative;
@@ -120,6 +186,7 @@ a {
     padding: 0;
     box-sizing: content-box;
 }
+
 .geo .box:before {
     content: '';
     position: absolute;
@@ -131,90 +198,114 @@ a {
     transform: translateX(-50%);
     transition: var(--main-transition-duration);
 }
+
 .geo .box:hover:before {
     width: 100%;
 }
-.geo .box-xy,
+
+.geo .box-xy {
+    text-align: center;
+    margin: 45px 0 45px 0;
+    padding: 20px 20px 52px 20px;
+}
+
 .geo .box-rm {
     text-align: center;
     margin: 45px 0 45px 0;
     padding: 20px;
 }
+
 .geo .box-dms {
     text-align: center;
     margin: 10px 0 5px 0;
     font-size: 13px;
+    padding-bottom: 32px;
 }
+
 .geo .box-xy .xy-inpu,
-.geo .box-rm .rm-xy{
+.geo .box-rm .rm-xy {
     width: 260px;
     height: 15px;
     padding: 6px;
     font-size: 12px;
 }
+
 .geo .box-dms input {
     width: 60px;
     height: 15px;
     font-size: 12px;
     margin: 0 5px;
 }
+
 .geo .box-dms .lat-dms,
 .geo .box-dms .lng-dms,
 .geo .box-dms .convert-result {
     position: relative;
 }
+
 .geo .box-dms .lat-dms {
     margin-top: 40px;
 }
+
 .geo .box-dms .lng-dms {
     margin-top: 17px;
 }
+
 .geo .box-dms .lat-dms .lat-title,
 .geo .box-dms .lng-dms .lng-title,
-.geo .box-dms .convert-result .result-title{
+.geo .box-dms .convert-result .result-title {
     position: absolute;
     transform: translateY(-15px);
 }
+
 .geo .box-xy .xy-search,
 .geo .box-dms .convert-btn,
-.geo .box-rm .rm-search{
-    background-image: linear-gradient(to right, #178b80 0%, #b6b672  51%, #003973  100%);
-    padding: 7px 12px ;
+.geo .box-rm .rm-search {
+    background-image: linear-gradient(to right, #178b80 0%, #b6b672 51%, #003973 100%);
+    padding: 7px 12px;
     text-align: center;
     cursor: pointer;
     font-weight: bold;
     transition: var(--main-transition-duration);
     background-size: 200% auto;
-    color: white;            
+    color: white;
     border-radius: 5px;
     margin-top: 12px;
 }
+
 .geo .box-xy .xy-search:hover,
 .geo .box-dms .convert-btn:hover,
-.geo .box-rm .rm-search:hover{
-    background-position: right center; /* change the direction of the change here */
+.geo .box-rm .rm-search:hover {
+    background-position: right center;
+    /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
 }
+
 .geo .box-xy .xy-search,
 .geo .box-rm .rm-search {
     font-size: 15px;
 }
+
 .geo .box i {
     margin-left: 5px;
 }
+
 .geo .box .convert-result {
     margin-top: 12px;
 }
+
 .geo .box .info {
     padding: 15px;
     background-color: #f2f2f2;
     position: relative;
 }
+
 .geo .box:hover .info span {
     color: var(--main-color);
     transition: var(--main-transition-duration);
 }
+
 .geo .box:hover .info::after {
     position: absolute;
     content: "";
@@ -222,27 +313,34 @@ a {
     height: 30px;
     margin: 10px;
 }
+
 .geo .box input {
     position: relative;
-    border:0;
-    border-bottom:1px solid #555;  
+    border: 0;
+    border-bottom: 1px solid #555;
     padding: 8px 0 5px 0;
 }
-.geo .box input:focus{
-    border: none;	
+
+.geo .box input:focus {
+    border: none;
     outline: none;
     border-bottom: 1px solid var(--secondary-color);
-    animation: change-border-color  0.3s ease-in-out forwards;
+    animation: change-border-color 0.3s ease-in-out forwards;
 }
+
 @keyframes change-border-color {
-    0%, 20% {
-       border-bottom: 1px solid black;
+
+    0%,
+    20% {
+        border-bottom: 1px solid black;
     }
+
     100% {
-        border-bottom: 1px solid var(--secondary-color); 
+        border-bottom: 1px solid var(--secondary-color);
         color: var(--main-color);
     }
 }
+
 .geo .box .ribbon {
     position: absolute;
     width: 120px;
@@ -251,6 +349,7 @@ a {
     left: -10px;
     overflow: hidden;
 }
+
 .geo .box .ribbon::before,
 .geo .box .ribbon::after {
     position: absolute;
@@ -260,14 +359,17 @@ a {
     border-top-color: transparent;
     border-left-color: transparent;
 }
+
 .geo .box .ribbon::before {
     top: 0;
     right: 22px;
 }
+
 .geo .box .ribbon::after {
     bottom: 22px;
     left: 0;
 }
+
 .geo .box .ribbon span {
     background-color: var(--main-color);
     width: 200px;
@@ -280,18 +382,22 @@ a {
     transform: rotate(-45deg);
     text-indent: 20px;
 }
+
 .geo .box:hover .rib-rotate span {
     transform: rotate(315deg);
-    transition: 0.4s all linear ;
+    transition: 0.4s all linear;
 }
+
 .geo .box:hover .rib-rotate::before,
 .geo .box:hover .rib-rotate::after {
     transform: rotate(-360deg);
-    transition: 0.4s all linear ;
+    transition: 0.4s all linear;
 }
+
 .geo .geo-clear-btn,
-.geo .box-rm .clear-route  {
-    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);     padding: 7px 12px ;
+.geo .box-rm .clear-route {
+    background: linear-gradient(90deg, rgba(0, 97, 142, 1) 20%, rgba(17, 147, 187, 1) 55%, rgba(38, 207, 242, 1) 83%);
+    padding: 7px 12px;
     text-align: center;
     cursor: pointer;
     font-weight: bold;
@@ -300,32 +406,47 @@ a {
     border-radius: 6px;
     color: #fff;
 }
+
 .geo .geo-clear-btn:hover,
-.geo .box-rm .clear-route:hover  {
+.geo .box-rm .clear-route:hover {
     background-position: right center;
     text-decoration: none;
 }
+
 /* end geo */
 /* start map content*/
-.map-border {
-    border: 3px solid #363636;
-    position: relative;
+
+#map {
+    width: 70%;
+    height: 500px;
+    margin: 0 auto;
+    border: 2px solid #363636;
 }
+
+@media (max-width: 767px) {
+    #map {
+        width: 90%;
+        height: 450px;
+    }
+}
+
 .map-home {
     position: absolute;
     top: 125px;
-    left: 10px;
+    left: 159px;
     z-index: 999;
     padding: 6px;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
     background-color: #fff;
-    border: 2px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
     background-clip: padding-box;
 }
+
 .locationinfo,
-.map-footer span{
+.map-footer span {
     width: 350px;
+    font-size: 12px;
     height: 20px;
     color: #fff;
     position: relative;
@@ -341,17 +462,19 @@ a {
     border-width: 3px;
     border-style: solid;
     border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 1 100%;
-    z-index: 99999;
 }
-.locationinfo::before{
+
+.locationinfo::before {
     z-index: -1;
 }
-.locationinfo::after{
+
+.locationinfo::after {
     z-index: -2;
     filter: blur(10px);
 }
+
 .locationinfo::before,
-.locationinfo::after{
+.locationinfo::after {
     content: "";
     position: absolute;
     top: -5px;
@@ -362,11 +485,12 @@ a {
     background: linear-gradient(0deg, #2196f3, #060c21, #F00000);
     border-radius: 5px;
 }
+
 .map-footer span button {
     position: relative;
     display: flex;
-    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);
-    padding: 3px 10px ;
+    background: linear-gradient(90deg, rgba(0, 97, 142, 1) 20%, rgba(17, 147, 187, 1) 55%, rgba(38, 207, 242, 1) 83%);
+    padding: 3px 10px;
     cursor: pointer;
     font-weight: bold;
     transition: var(--main-transition-duration);
@@ -380,31 +504,39 @@ a {
     background-position: right center;
     text-decoration: none;
 }
+
 .map-footer span {
-    margin-top:20px;
-} 
-.map-footer span h6{
+    margin-top: 10px;
+}
+
+.map-footer span h6 {
     margin: 0;
     font-size: 13px;
     font-weight: bold;
     width: 100%;
-} 
-@media (max-width: 767px) {
+}
+
+@media (max-width: 768px) {
     .map-footer span {
-        width: 220px;
+        width: 270px;
+        padding: 10px;
     }
+
     .map-footer span h6 {
         font-size: 11px;
     }
+
     .map-footer span button {
         font-size: 11px;
         padding: 2px 5px;
         margin-left: 8px
     }
-    .map-footer .locationinfo{
-        width: 250px;
+
+    .map-footer .locationinfo {
+        width: 285px;
         text-align: center;
         font-size: 9px;
+        padding: 10px;
     }
 }
 
@@ -412,22 +544,25 @@ a {
 .leaflet-control-layers {
     margin: 2px 10px !important
 }
-.leaflet-control-geocoder{
-    margin: 0 10px 3px 0  !important
+
+.leaflet-control-geocoder {
+    margin: 0 10px 3px 0 !important
 }
+
 .leaflet-routing-container {
     font-size: 9px;
     height: auto;
     margin-top: 2px;
 }
+
 /* for map icon */
 /* weather */
-.weather-info {
+/* .weather-info {
     width: 230px;
     height: 260px;
     background-color: #fff;
     position: absolute;
-    top: 40%;
+    top: 35%;
     z-index: 999;
     font-size: 14px;
     margin-left: 10px;
@@ -435,36 +570,48 @@ a {
     padding: 8px;
     line-height: 1.8;
     overflow: scroll;
-}
-@media (max-width: 480px) {
-    .weather-info {
+} */
+
+@media (max-width: 768px) {
+    /* .weather-info {
         font-size: 10px;
         width: 159px;
         margin-left: 1px;
         height: auto;
         font-weight: bold;
-        top: 24%;
-    }
+        top: 32%;
+    } */
+
     .geo .box-rm .clear-route {
         margin-top: 10px;
     }
+
     .leaflet-routing-container {
         position: absolute !important;
-        width: 195px !important; 
+        width: 180px !important;
         height: 230px !important;
         overflow: scroll !important;
-        top: 380px !important;
-        right: 300% !important;
+        top: 180px !important;
+        right: 217% !important;
         border-radius: 10px !important;
     }
+
+    .leaflet-popup-content {
+        margin: 9px 24px 9px 10px !important;
+        line-height: 1.3 !important;
+        font-size: 10px !important;
+        min-height: 1px !important;
+        width: 140px !important;
+    }
 }
+
 /* weather */
 /* end map content*/
 /* start converting */
 .convert {
     position: relative;
-    background-color: #f7f7f7;
 }
+
 .convert .box {
     background-color: white;
     position: relative;
@@ -472,6 +619,7 @@ a {
     box-shadow: 0px 12px 20px 0px rgb(0 0 0 / 7%), 0px 2px 4px 0px rgb(0 0 0 / 12%);
     padding: 0;
 }
+
 .convert .box:after {
     content: '';
     position: absolute;
@@ -482,44 +630,57 @@ a {
     background-color: var(--main-color);
     transition: var(--main-transition-duration);
 }
+
 .convert .box:hover:after {
     width: 100%;
 }
+
 .convert .toUTM .toUTM-res {
     font-size: 13px;
 }
-.convert .toUTM .toUTM-res input{
+
+.convert .toUTM .toUTM-res input {
     width: 310px;
 }
-.convert .toUTM,
-.convert .DDtoDMS-content {
-    padding: 20px;
+
+.convert .toUTM {
+    padding: 36px;
 }
+
+.convert .DDtoDMS-content {
+    padding: 26px;
+}
+
 .convert .ddtodms-form,
 .convert .toutm-form {
     font-size: 14px;
 }
+
 .convert .ddtodms-res label {
     font-size: 13px;
 }
+
 .convert .ddtodms-res input {
     font-size: 13px;
     width: 95px;
 }
+
 .convert .dmstoUTM-box {
     text-align: center;
     margin: 10px 0 5px 0;
     font-size: 13px;
 }
+
 .convert .dmstoUTM-box input {
     width: 50px;
     height: 15px;
     font-size: 12px;
     margin: 0 5px;
 }
-.convert .dmstoUTM-box .dms-lat-deg, 
-.convert .dmstoUTM-box .dms-lat-min, 
-.convert .dmstoUTM-box .dms-lng-deg, 
+
+.convert .dmstoUTM-box .dms-lat-deg,
+.convert .dmstoUTM-box .dms-lat-min,
+.convert .dmstoUTM-box .dms-lng-deg,
 .convert .dmstoUTM-box .dms-lng-min {
     width: 40px;
     height: 15px;
@@ -532,62 +693,75 @@ a {
 .convert .dmstoUTM-box .convert-result {
     position: relative;
 }
+
 .convert .dmstoUTM-box .lat-dms {
     margin-top: 40px;
 }
+
 .convert .dmstoUTM-box .lng-dms {
     margin-top: 17px;
 }
+
 .convert .dmstoUTM-box .dms-lat-title,
 .convert .dmstoUTM-box .dms-lng-title,
-.convert .dmstoUTM-box .convert-result .result-title{
+.convert .dmstoUTM-box .convert-result .result-title {
     position: absolute;
     transform: translateY(-15px);
 }
+
 .convert .latLongtoUTM-box .toUTM-convert-btn,
 .convert .ddToDms-box .ddtodms-convert-btn,
-.convert .dmstoUTM-box .DMStoUTM-convert-btn{
-    background-image: linear-gradient(to right, #178b80 0%, #b6b672  51%, #003973  100%);
-    padding: 7px 12px ;
+.convert .dmstoUTM-box .DMStoUTM-convert-btn {
+    background-image: linear-gradient(to right, #178b80 0%, #b6b672 51%, #003973 100%);
+    padding: 7px 12px;
     text-align: center;
     cursor: pointer;
     font-weight: bold;
     transition: var(--main-transition-duration);
     background-size: 200% auto;
-    color: white;            
+    color: white;
     border-radius: 5px;
     font-size: 15px;
 }
+
 .convert .latLongtoUTM-box .toUTM-convert-btn:hover,
 .convert .ddToDms-box .ddtodms-convert-btn:hover,
-.convert .dmstoUTM-box .DMStoUTM-convert-btn:hover{
-    background-position: right center; /* change the direction of the change here */
+.convert .dmstoUTM-box .DMStoUTM-convert-btn:hover {
+    background-position: right center;
+    /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
 }
-.convert .dmstoUTM-box{
+
+.convert .dmstoUTM-box {
     position: relative;
 }
+
 .convert .DMStoUTM-Res .dmstoutm-easting,
-.convert .DMStoUTM-Res .dmstoutm-northing{
+.convert .DMStoUTM-Res .dmstoutm-northing {
     width: 90px;
 }
-.convert .DMStoUTM-Res .dmstoutm-zone{
+
+.convert .DMStoUTM-Res .dmstoutm-zone {
     width: 30px;
 }
+
 .convert .dmstoUTM-box .dms-lat-dir,
-.convert .dmstoUTM-box .dms-lng-dir{
+.convert .dmstoUTM-box .dms-lng-dir {
     width: 25px;
 }
+
 .convert .box .info {
     padding: 15px;
     background-color: #f2f2f2;
     position: relative;
 }
+
 .convert .box:hover .info span {
     color: var(--main-color);
     transition: var(--main-transition-duration);
 }
+
 .convert .box:hover .info::after {
     position: absolute;
     content: "";
@@ -595,27 +769,34 @@ a {
     height: 30px;
     margin: 10px;
 }
+
 .convert .box input {
     position: relative;
-    border:0;
-    border-bottom:1px solid #555;  
+    border: 0;
+    border-bottom: 1px solid #555;
     padding: 8px 0 5px 0;
 }
-.convert .box input:focus{
-    border: none;	
+
+.convert .box input:focus {
+    border: none;
     outline: none;
     border-bottom: 1px solid var(--secondary-color);
-    animation: change-border-color  0.3s ease-in-out forwards;
+    animation: change-border-color 0.3s ease-in-out forwards;
 }
+
 @keyframes change-border-color {
-    0%, 20% {
-       border-bottom: 1px solid black;
+
+    0%,
+    20% {
+        border-bottom: 1px solid black;
     }
+
     100% {
-        border-bottom: 1px solid var(--secondary-color); 
+        border-bottom: 1px solid var(--secondary-color);
         color: var(--main-color);
     }
 }
+
 .convert .box .ribbon {
     position: absolute;
     width: 120px;
@@ -624,6 +805,7 @@ a {
     left: -10px;
     overflow: hidden;
 }
+
 .convert .box .ribbon::before,
 .convert .box .ribbon::after {
     position: absolute;
@@ -633,14 +815,17 @@ a {
     border-top-color: transparent;
     border-left-color: transparent;
 }
+
 .convert .box .ribbon::before {
     top: 0;
     right: 22px;
 }
+
 .convert .box .ribbon::after {
     bottom: 22px;
     left: 0;
 }
+
 .convert .box .ribbon span {
     background-color: var(--main-color);
     width: 200px;
@@ -648,76 +833,77 @@ a {
     position: absolute;
     color: #fff;
     text-align: center;
-    top: 25px;
+    top: 30px;
     right: 0;
     transform: rotate(-45deg);
-    text-indent: 20px;
+    text-indent: 40px;
+    font-size: 13px;
 }
+
 .convert .box:hover .rotate span {
     transform: rotate(315deg);
-    transition: 0.4s all linear ;
+    transition: 0.4s all linear;
 }
+
 .convert .box:hover .rotate::before,
 .convert .box:hover .rotate::after {
     transform: rotate(-360deg);
-    transition: 0.4s all linear ;
+    transition: 0.4s all linear;
 }
+
 .convert .convert-clear-btn {
-    background: linear-gradient(90deg, rgba(0,97,142,1) 20%, rgba(17,147,187,1) 55%, rgba(38,207,242,1) 83%);     padding: 7px 12px ;
+    background: linear-gradient(90deg, rgba(0, 97, 142, 1) 20%, rgba(17, 147, 187, 1) 55%, rgba(38, 207, 242, 1) 83%);
+    padding: 7px 12px;
     text-align: center;
     cursor: pointer;
-    font-weight: bold;
     transition: var(--main-transition-duration);
     background-size: 200% auto;
     border-radius: 6px;
 }
+
 .convert .convert-clear-btn:hover {
     background-position: right center;
     color: #fff;
     text-decoration: none;
 }
+
 /* end converting */
 /* start Footer */
 .footer {
     background-color: #2c4755;
-    font-size: 16px;
+    font-size: 17px;
     text-align: center;
     color: white;
 }
-.footer .footer-content{
+
+.footer .footer-content {
     padding-top: 20px;
+    line-height: 1.5;
 }
+
 .footer .footer-tit {
     font-weight: bold;
     color: var(--main-color);
 }
+
 .footer .footer-span-one .footer-tit:hover {
-    text-decoration: underline;
     color: var(--main-color);
-    transition: 1.5s;
 }
-.footer .footer-span-one {
-    margin-bottom: 12px
-}
+
 .footer a {
-    text-decoration: none;
     color: white;
 }
-.footer .footer-span-two i {
-    padding-bottom: 20px;
-}
-.footer .footer-span-two i {
-    margin-left: 8px;
-    margin-top: 15px;
-}
-.footer .footer-span-two i:hover {
+
+.footer .footer-span-one i:hover {
     color: var(--main-color);
     transition: 0.4s;
 }
-@media (max-width: 510px) {
+
+@media (max-width: 768px) {
     .footer {
         text-align: center;
-        font-size: 12px;
+        font-size: 13px;
     }
 }
+
 /* End Footer */
