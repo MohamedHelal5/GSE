@@ -1,112 +1,112 @@
 require([
-    "esri/rest/locator",
-    "esri/Map",
-    "esri/views/MapView",
-    "esri/widgets/Search",
-    "esri/widgets/ScaleBar",
-    "esri/geometry/Point",
-    'esri/symbols/SimpleMarkerSymbol',
-    "esri/Graphic",
-    "esri/layers/GraphicsLayer",
-    "esri/PopupTemplate",
-    "esri/widgets/Popup",
-  ], function (locator,Map, MapView, Search, ScaleBar, Point,SimpleMarkerSymbol, Graphic, GraphicsLayer,PopupTemplate, Popup) {
-    const map = new Map({
-      basemap: "streets-navigation-vector"
-    });
-    const view = new MapView({
-      container: "viewDiv",
-      map: map,
-      zoom : 4,
-      center: [30.062, 31.249] // Default center coordinates (Cairo)
-    });
+  "esri/rest/locator",
+  "esri/Map",
+  "esri/views/MapView",
+  "esri/widgets/Search",
+  "esri/widgets/ScaleBar",
+  "esri/geometry/Point",
+  'esri/symbols/SimpleMarkerSymbol',
+  "esri/Graphic",
+  "esri/layers/GraphicsLayer",
+  "esri/PopupTemplate",
+  "esri/widgets/Popup",
+], function (locator, Map, MapView, Search, ScaleBar, Point, SimpleMarkerSymbol, Graphic, GraphicsLayer, PopupTemplate, Popup) {
+  const map = new Map({
+    basemap: "streets-navigation-vector"
+  });
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    zoom: 4,
+    center: [30.062, 31.249] // Default center coordinates (Cairo)
+  });
 
-    const graphicsLayer = new GraphicsLayer();
-    map.add(graphicsLayer);
-// ############################### start widget #####################################
-    // home 
-    document.querySelector(".map-home").onclick = function () {
-      view.center = [30.062, 31.249]
-      view.zoom = 4
-    }
-    // Scale bar
-    let scaleBar = new ScaleBar({
-        view: view,
-        unit: "dual"
-    });
-    view.ui.add(scaleBar, {
-        position: "bottom-left"
-    });
-    // Search
-    const searchWidget = new Search({
-        view: view
-    });
-    view.ui.add(searchWidget, {
-        position: "top-right",
-        index: 2
-    });
-// ############################### end widget #####################################
-// ######################################################################################################
-view.popup.autoOpenEnabled = true;
-view.on("click", (e) => {
+  const graphicsLayer = new GraphicsLayer();
+  map.add(graphicsLayer);
+  // ############################### start widget #####################################
+  // home 
+  document.querySelector(".map-home").onclick = function () {
+    view.center = [30.062, 31.249]
+    view.zoom = 4
+  }
+  // Scale bar
+  let scaleBar = new ScaleBar({
+    view: view,
+    unit: "dual"
+  });
+  view.ui.add(scaleBar, {
+    position: "bottom-left"
+  });
+  // Search
+  const searchWidget = new Search({
+    view: view
+  });
+  view.ui.add(searchWidget, {
+    position: "top-right",
+    index: 2
+  });
+  // ############################### end widget #####################################
+  // ######################################################################################################
+  view.popup.autoOpenEnabled = true;
+  view.on("click", (e) => {
     // Get the coordinates of the click on the view
     // around the decimals to 3 decimals
-    var lati = Math.round(e.mapPoint.latitude * 1000 ) / 1000
-    var longi = Math.round(e.mapPoint.longitude * 1000 ) / 1000
-    
+    var lati = Math.round(e.mapPoint.latitude * 1000) / 1000
+    var longi = Math.round(e.mapPoint.longitude * 1000) / 1000
+
     // Create a locator url using the world geocoding service
     var locatorUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
-    
+
     const params = {
       location: e.mapPoint
     };
 
     // Execute a reverse geocode using the clicked location
     locator
-    .locationToAddress(locatorUrl, params)
-    .then((locaResponse) => {
-      // If an address is successfully found, show it in the popup's content
-          document.getElementById("mapinfo").value = ` Long : ${longi} , Lat : ${lati} 
+      .locationToAddress(locatorUrl, params)
+      .then((locaResponse) => {
+        // If an address is successfully found, show it in the popup's content
+        document.getElementById("mapinfo").value = ` Long : ${longi} , Lat : ${lati} 
           Area : ${locaResponse.address}`
-        }).catch(() => {
+      }).catch(() => {
         // If the promise fails and no result is found, show a generic message
         document.getElementById("mapinfo").value = "No address was found for this location";
-        });
-}) /* View on  */    
-// #########################################################################################################################################
-    const form = document.getElementById('searchForm');
-    const startTimeInput = document.getElementById('startTimeInput');
-    const minMagnitudeInput = document.getElementById('minMagnitudeInput');
-    const maxMagnitudeInput = document.getElementById('maxMagnitudeInput');
-    const limitInput = document.getElementById('limitInput');
-    const resultDiv = document.getElementById('result');
+      });
+  }) /* View on  */
+  // #########################################################################################################################################
+  const form = document.getElementById('searchForm');
+  const startTimeInput = document.getElementById('startTimeInput');
+  const minMagnitudeInput = document.getElementById('minMagnitudeInput');
+  const maxMagnitudeInput = document.getElementById('maxMagnitudeInput');
+  const limitInput = document.getElementById('limitInput');
+  const resultDiv = document.getElementById('result');
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const startTime = startTimeInput.value;
-      const minMagnitude = parseFloat(minMagnitudeInput.value);
-      const maxMagnitude = parseFloat(maxMagnitudeInput.value);
-      const limit = parseInt(limitInput.value);
-      searchEarthquakeData(startTime, minMagnitude, maxMagnitude, limit);
-    });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const startTime = startTimeInput.value;
+    const minMagnitude = parseFloat(minMagnitudeInput.value);
+    const maxMagnitude = parseFloat(maxMagnitudeInput.value);
+    const limit = parseInt(limitInput.value);
+    searchEarthquakeData(startTime, minMagnitude, maxMagnitude, limit);
+  });
 
-    function searchEarthquakeData(startTime, minMagnitude, maxMagnitude, limit) {
-      const apiUrl = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=${minMagnitude}&maxmagnitude=${maxMagnitude}&orderby=time&limit=${limit}&starttime=${startTime}`;
-      
-      fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-          const earthquakes = data.features;
+  function searchEarthquakeData(startTime, minMagnitude, maxMagnitude, limit) {
+    const apiUrl = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=${minMagnitude}&maxmagnitude=${maxMagnitude}&orderby=time&limit=${limit}&starttime=${startTime}`;
 
-          displayEarthquakeData(earthquakes);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          resultDiv.innerHTML = 'An error occurred while fetching earthquake data.';
-        });
-    }
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const earthquakes = data.features;
 
-    function displayEarthquakeData(earthquakes) {
+        displayEarthquakeData(earthquakes);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        resultDiv.innerHTML = 'An error occurred while fetching earthquake data.';
+      });
+  }
+
+  function displayEarthquakeData(earthquakes) {
     resultDiv.innerHTML = '';
     if (earthquakes.length === 0) {
       resultDiv.innerHTML = 'No earthquakes found for the provided parameters.';
@@ -132,7 +132,7 @@ view.on("click", (e) => {
       var seconds = date.getSeconds();
       // date & time 
       var dateTime = `${year}-${month}-${day}  ${hours}:${minutes}:${seconds} `
-      
+
       li.textContent = `${eq.properties.place} - Magnitude ${eq.properties.mag} - Lat : ${eq.geometry.coordinates[0]} - Long : ${eq.geometry.coordinates[1]}`;
       // numbering li tags
       const span = document.createElement("span");
@@ -174,12 +174,12 @@ view.on("click", (e) => {
 
         // go to earthquake point lat,long
         view.goTo({
-          center : [eq.geometry.coordinates[0], eq.geometry.coordinates[1]],
+          center: [eq.geometry.coordinates[0], eq.geometry.coordinates[1]],
           zoom: 10
         })
       });
-      
-      addMarker(eq.geometry.coordinates[1], eq.geometry.coordinates[0], eq.properties.place, eq.properties.mag, eq.properties.magType, dateTime, eq.geometry.coordinates[2], eq.properties.nst, eq.properties.dmin, eq.properties.rms, eq.properties.gap, eq.properties.sig, eq.properties.tsunami, eq.id );
+
+      addMarker(eq.geometry.coordinates[1], eq.geometry.coordinates[0], eq.properties.place, eq.properties.mag, eq.properties.magType, dateTime, eq.geometry.coordinates[2], eq.properties.nst, eq.properties.dmin, eq.properties.rms, eq.properties.gap, eq.properties.sig, eq.properties.tsunami, eq.id);
     });
 
     document.querySelector(".eq-result").appendChild(ul)
@@ -209,7 +209,7 @@ view.on("click", (e) => {
         longitude: longitude,
         latitude: latitude
       });
-  
+
       var markerSymbol = ({
         type: "simple-marker",
         color: [226, 119, 40],
@@ -224,18 +224,18 @@ view.on("click", (e) => {
         Latitude: latitude,
         Longitude: longitude,
         Magnitude: magnitude,
-        MagType : magType,
+        MagType: magType,
         dateTime: dateTime,
         depth: depth,
-        NST : nst,
+        NST: nst,
         dmin: dmin,
-        rms : rms,
-        gap : gap,
-        sig : sig,
-        Tsunami : tsunami,
-        id : id
+        rms: rms,
+        gap: gap,
+        sig: sig,
+        Tsunami: tsunami,
+        id: id
       };
-    
+
       const popupTemplate = new PopupTemplate({
         title: "Earthquake Lat : {Latitude},Long : {Longitude}",
         content: [
@@ -290,17 +290,17 @@ view.on("click", (e) => {
         ]
       });
 
-      
+
       const graphic = new Graphic({
         geometry: point,
         symbol: markerSymbol,
         attributes: attributes,
         popupTemplate: popupTemplate
       });
-    
+
       graphicsLayer.add(graphic);
     }
-    }
+  }
 });
 // #########################################################  Modal ####################################################################
 // Show Modal
@@ -313,14 +313,14 @@ openModalButton.addEventListener("click", showModalWindow);
 // Hide Modal
 const closeModalButton = document.getElementById("close-modal");
 const hideModalWindow = () => {
-    modalWindowOverlay.style.display = 'none';
+  modalWindowOverlay.style.display = 'none';
 }
 closeModalButton.addEventListener("click", hideModalWindow);
 // Hide On Blur
 const hideModalWindowOnBlur = (e) => {
-    if(e.target === e.currentTarget) {
-      console.log(e.target === e.currentTarget)
-        hideModalWindow();
-    }
+  if (e.target === e.currentTarget) {
+    console.log(e.target === e.currentTarget)
+    hideModalWindow();
+  }
 }
 modalWindowOverlay.addEventListener("click", hideModalWindowOnBlur)
